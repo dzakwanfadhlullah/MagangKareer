@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export function ClosingSection() {
     return (
-        <section className="py-20 transition-depth-to-mist">
+        <section className="relative z-10 py-20">
             <div className="mx-auto max-w-3xl px-6 text-center">
                 <motion.p
                     initial={{ opacity: 0 }}

@@ -22,7 +22,7 @@ const features = [
 
 export function PhilosophySection() {
     return (
-        <section className="py-32 transition-warm-to-white" id="tentang">
+        <section className="relative z-10 py-32" id="tentang">
             <div className="mx-auto max-w-2xl px-6 text-center mb-24">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}

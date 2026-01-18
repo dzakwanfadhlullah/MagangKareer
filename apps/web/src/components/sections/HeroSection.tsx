@@ -38,113 +38,34 @@ function AnimatedText({
 
 export function HeroSection() {
     return (
-        <section className="relative flex min-h-[85vh] flex-col items-center justify-center px-6 pt-32 pb-20 transition-white-to-mist overflow-hidden">
-            {/* Dot Grid Pattern Background */}
-            <div
-                className="absolute inset-0 opacity-[0.03]"
-                style={{
-                    backgroundImage: `radial-gradient(circle, #334155 1px, transparent 1px)`,
-                    backgroundSize: '24px 24px',
-                }}
-            />
-
-            {/* Floating Geometric Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Top Right Circle */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-slate-100 to-slate-200/50 blur-3xl opacity-60"
-                />
-
-                {/* Bottom Left Circle */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, delay: 0.7 }}
-                    className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-tr from-blue-50 to-slate-100/50 blur-3xl opacity-50"
-                />
-
-                {/* Floating Small Elements */}
-                <motion.div
-                    animate={{
-                        y: [0, -15, 0],
-                        rotate: [0, 5, 0],
-                    }}
-                    transition={{
-                        duration: 6,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className="absolute top-1/4 left-[15%] w-3 h-3 rounded-full bg-slate-300/40"
-                />
-                <motion.div
-                    animate={{
-                        y: [0, 20, 0],
-                        rotate: [0, -10, 0],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 1,
-                    }}
-                    className="absolute top-1/3 right-[20%] w-4 h-4 rounded-sm bg-slate-200/50 rotate-45"
-                />
-                <motion.div
-                    animate={{
-                        y: [0, -10, 0],
-                        x: [0, 5, 0],
-                    }}
-                    transition={{
-                        duration: 7,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 2,
-                    }}
-                    className="absolute bottom-1/3 left-[25%] w-2 h-2 rounded-full bg-slate-400/30"
-                />
-                <motion.div
-                    animate={{
-                        y: [0, 15, 0],
-                    }}
-                    transition={{
-                        duration: 5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: 0.5,
-                    }}
-                    className="absolute top-[45%] right-[12%] w-2 h-2 rounded-sm bg-slate-300/40 rotate-12"
-                />
-            </div>
+        <section className="relative flex min-h-screen flex-col items-center justify-center px-6 pt-16 pb-12 overflow-hidden z-10">
 
             {/* Main Content */}
-            <div className="relative z-10 mx-auto max-w-4xl text-center">
+            <div className="relative z-10 mx-auto max-w-5xl text-center">
                 {/* Badge */}
                 <motion.p
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4, delay: 0.1 }}
-                    className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
+                    className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400"
                 >
                     Batch 12 Open
                 </motion.p>
 
                 {/* Headline */}
-                <h1 className="mb-8 text-slate-900">
+                <h1 className="mb-6 text-slate-900">
                     {/* Line 1 */}
                     <motion.span
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
-                        className="block text-3xl md:text-4xl font-medium tracking-tight text-slate-600 mb-2"
+                        className="block text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight text-slate-600 mb-2"
                     >
                         Cara Paling Tepat
                     </motion.span>
 
                     {/* Line 2 - Main headline */}
-                    <span className="block text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+                    <span className="block text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
                         <motion.span
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -166,7 +87,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.9 }}
-                    className="mx-auto mb-12 max-w-xl text-lg leading-relaxed text-slate-500 font-light"
+                    className="mx-auto mb-8 max-w-xl text-base md:text-lg leading-relaxed text-slate-500 font-light"
                 >
                     Menghubungkan talenta muda dengan standar industri global. Akses
                     program magang di BUMN dan perusahaan teknologi tanpa bias.
@@ -177,7 +98,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.1 }}
-                    className="flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8"
+                    className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-8"
                 >
                     <Link
                         href="#lowongan"
@@ -199,7 +120,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 1.4 }}
-                    className="mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-12"
+                    className="mt-12 flex flex-wrap items-center justify-center gap-8 md:gap-14"
                 >
                     <div className="text-center">
                         <div className="text-2xl md:text-3xl font-bold text-slate-900">500+</div>
@@ -220,4 +141,3 @@ export function HeroSection() {
         </section>
     );
 }
-

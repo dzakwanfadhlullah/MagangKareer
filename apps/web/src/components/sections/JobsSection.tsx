@@ -16,7 +16,7 @@ const jobs = [
 
 export function JobsSection() {
     return (
-        <section className="py-32 bg-tone-3-cool" id="lowongan">
+        <section className="relative z-10 py-32" id="lowongan">
             <div className="mx-auto max-w-7xl px-6">
                 <motion.div
                     initial={{ opacity: 0 }}

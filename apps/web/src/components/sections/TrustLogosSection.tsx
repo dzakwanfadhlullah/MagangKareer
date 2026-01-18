@@ -6,7 +6,7 @@ const logos = ["TELKOM", "GOTO", "PERTAMINA", "TRAVELOKA", "BRI"];
 
 export function TrustLogosSection() {
     return (
-        <section className="transition-mist-to-warm pt-12 pb-24">
+        <section className="relative z-10 pt-16 pb-24">
             <div className="mx-auto max-w-7xl px-6">
                 <p className="mb-10 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">
                     Dipercaya Oleh Mitra Industri

@@ -22,7 +22,7 @@ const steps = [
 
 export function ProcessSection() {
     return (
-        <section className="py-32 transition-white-to-cool">
+        <section className="relative z-10 py-32">
             <div className="mx-auto max-w-7xl px-6">
                 <div className="relative grid gap-12 md:grid-cols-3 items-start">
                     {steps.map((step, index) => (

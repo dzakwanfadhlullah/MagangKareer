@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function TestimonialSection() {
     return (
-        <section className="py-32 transition-cool-to-depth" id="testimoni">
+        <section className="relative z-10 py-32" id="testimoni">
             <div className="mx-auto max-w-4xl px-6 text-center">
                 <motion.blockquote
                     initial={{ opacity: 0, scale: 0.98 }}
