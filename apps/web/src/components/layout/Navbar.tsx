@@ -2,13 +2,20 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 import { MobileMenu } from "./MobileMenu";
 
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+
+    const { scrollY } = useScroll();
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        setScrolled(latest > 50);
+    });
 
     return (
         <>
@@ -16,7 +23,10 @@ export function Navbar() {
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.3 }}
-                className="fixed top-0 left-0 right-0 z-50 h-[56px] bg-white/70 backdrop-blur-md transition-all duration-300 border-b border-black/5"
+                className={`fixed top-0 left-0 right-0 z-50 h-[56px] backdrop-blur-md transition-all duration-200 border-b ${scrolled
+                        ? "bg-white/95 shadow-md border-slate-200/50"
+                        : "bg-white/70 shadow-none border-black/5"
+                    }`}
             >
                 <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
                     {/* Logo */}
@@ -95,3 +105,4 @@ export function Navbar() {
         </>
     );
 }
+
