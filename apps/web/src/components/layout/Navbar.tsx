@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import Image from "next/image";
-import { Menu } from "lucide-react";
+import { Menu, UserPlus } from "lucide-react";
 import { MobileMenu } from "./MobileMenu";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
@@ -76,8 +76,8 @@ export function Navbar() {
                                 {/* Active Indicator - Animated Underline */}
                                 <span
                                     className={`absolute -bottom-1 left-0 h-0.5 bg-slate-900 transition-all duration-200 ${activeSection === link.sectionId
-                                            ? "w-full"
-                                            : "w-0 group-hover:w-full"
+                                        ? "w-full"
+                                        : "w-0 group-hover:w-full"
                                         }`}
                                 />
                             </Link>
@@ -96,9 +96,15 @@ export function Navbar() {
                             </Link>
                             <Link
                                 href="#"
-                                className="inline-flex h-8 items-center justify-center rounded-full border border-slate-200 bg-transparent px-5 text-sm font-medium text-slate-700 transition-all hover:border-slate-800 hover:text-slate-900"
+                                className="group relative inline-flex h-9 items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 px-5 text-sm font-medium text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-800 hover:to-slate-700 hover:shadow-lg hover:shadow-slate-300/30 hover:scale-105 active:scale-95"
                             >
-                                Daftar
+                                <UserPlus
+                                    size={14}
+                                    className="opacity-0 -ml-4 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0"
+                                />
+                                <span>Daftar</span>
+                                {/* Pulse ring animation */}
+                                <span className="absolute inset-0 rounded-full animate-ping bg-slate-400/20 group-hover:animate-none" />
                             </Link>
                         </div>
 
