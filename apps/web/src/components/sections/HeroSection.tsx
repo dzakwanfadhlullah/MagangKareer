@@ -39,7 +39,88 @@ function AnimatedText({
 export function HeroSection() {
     return (
         <section className="relative flex min-h-[85vh] flex-col items-center justify-center px-6 pt-32 pb-20 transition-white-to-mist overflow-hidden">
-            <div className="mx-auto max-w-4xl text-center">
+            {/* Dot Grid Pattern Background */}
+            <div
+                className="absolute inset-0 opacity-[0.03]"
+                style={{
+                    backgroundImage: `radial-gradient(circle, #334155 1px, transparent 1px)`,
+                    backgroundSize: '24px 24px',
+                }}
+            />
+
+            {/* Floating Geometric Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {/* Top Right Circle */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.5 }}
+                    className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-slate-100 to-slate-200/50 blur-3xl opacity-60"
+                />
+
+                {/* Bottom Left Circle */}
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1, delay: 0.7 }}
+                    className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-tr from-blue-50 to-slate-100/50 blur-3xl opacity-50"
+                />
+
+                {/* Floating Small Elements */}
+                <motion.div
+                    animate={{
+                        y: [0, -15, 0],
+                        rotate: [0, 5, 0],
+                    }}
+                    transition={{
+                        duration: 6,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    className="absolute top-1/4 left-[15%] w-3 h-3 rounded-full bg-slate-300/40"
+                />
+                <motion.div
+                    animate={{
+                        y: [0, 20, 0],
+                        rotate: [0, -10, 0],
+                    }}
+                    transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 1,
+                    }}
+                    className="absolute top-1/3 right-[20%] w-4 h-4 rounded-sm bg-slate-200/50 rotate-45"
+                />
+                <motion.div
+                    animate={{
+                        y: [0, -10, 0],
+                        x: [0, 5, 0],
+                    }}
+                    transition={{
+                        duration: 7,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 2,
+                    }}
+                    className="absolute bottom-1/3 left-[25%] w-2 h-2 rounded-full bg-slate-400/30"
+                />
+                <motion.div
+                    animate={{
+                        y: [0, 15, 0],
+                    }}
+                    transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: 0.5,
+                    }}
+                    className="absolute top-[45%] right-[12%] w-2 h-2 rounded-sm bg-slate-300/40 rotate-12"
+                />
+            </div>
+
+            {/* Main Content */}
+            <div className="relative z-10 mx-auto max-w-4xl text-center">
                 {/* Badge */}
                 <motion.p
                     initial={{ opacity: 0, y: 10 }}
