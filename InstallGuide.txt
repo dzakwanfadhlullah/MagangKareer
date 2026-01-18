@@ -1,0 +1,398 @@
+Siap. Di bawah ini aku kasih **struktur FE+BE (monorepo)** yang paling rapi untuk Next.js App Router + ingestion worker (scraping) + queue + DB. Formatnya sengaja “agent-friendly” biar kamu bisa simpan jadi `.txt` dan dieksekusi step-by-step.
+
+Aku pakai stack:
+
+* **Next.js (FE + API)**
+* **Worker service (Node/TS)**
+* **PostgreSQL + Prisma**
+* **Redis + BullMQ**
+* **Playwright + Cheerio** (scraping)
+* **Zod** (shared schema)
+* **Sentry + logging** (optional tapi disaranin)
+
+> Catatan: Ini untuk “real-time-ish” ingestion via queue. Nanti tinggal tambahin sumber-sumber.
+
+---
+
+## A) Repo Structure (Monorepo)
+
+```
+magangkareer/
+  apps/
+    web/                # Next.js FE + API routes
+    worker/             # scraping + queue workers
+  packages/
+    shared/             # shared types, zod schemas, utils
+    config/             # eslint/tsconfig shared (optional)
+  docker/
+    docker-compose.yml  # postgres + redis local
+  .env.example
+  package.json
+  pnpm-workspace.yaml
+  tsconfig.base.json
+```
+
+---
+
+## B) Tooling & Package Manager
+
+Recommended: **pnpm** (monorepo paling enak)
+
+* Install global: `npm i -g pnpm`
+
+Node:
+
+* Node 18+ / 20 LTS
+
+---
+
+## C) Base Setup (Root)
+
+### 1) Init workspace
+
+**Commands (root):**
+
+* `mkdir magangkareer && cd magangkareer`
+* `pnpm init`
+
+### 2) Create `pnpm-workspace.yaml`
+
+```
+packages:
+  - "apps/*"
+  - "packages/*"
+```
+
+### 3) Root dev dependencies (recommended)
+
+Install at root:
+
+* `pnpm add -D typescript ts-node @types/node dotenv`
+
+Optional (recommended):
+
+* `pnpm add -D eslint prettier`
+
+---
+
+## D) Local Infra (Docker)
+
+Create `docker/docker-compose.yml`:
+
+* Postgres
+* Redis
+
+Minimal services:
+
+* `postgres:16`
+* `redis:7`
+
+Env you’ll need:
+
+* POSTGRES_USER
+* POSTGRES_PASSWORD
+* POSTGRES_DB
+* REDIS_URL (point to redis container)
+
+---
+
+## E) Packages: `packages/shared` (Shared types & schemas)
+
+### Purpose
+
+* Zod schemas shared between FE (validation) and Worker (normalized data)
+* Shared Types (Job, Company, etc.)
+
+### Create package
+
+`mkdir -p packages/shared`
+
+In `packages/shared/package.json` (conceptually):
+
+* name: `@magangkareer/shared`
+
+Install in shared:
+
+* `pnpm -C packages/shared add zod`
+* `pnpm -C packages/shared add -D typescript`
+
+---
+
+## F) Database Layer (Prisma)
+
+**Where:** You can keep Prisma inside `apps/web` (simpler) OR `packages/db`.
+For simplicity and speed, put Prisma in `apps/web` and share the client.
+
+### Install Prisma in `apps/web`
+
+(After web app created)
+
+* `pnpm -C apps/web add prisma @prisma/client`
+* `pnpm -C apps/web add -D prisma`
+
+You’ll create:
+
+* `apps/web/prisma/schema.prisma`
+* `apps/web/prisma/migrations/...`
+
+---
+
+## G) FE App: `apps/web` (Next.js)
+
+### Create Next app
+
+* `mkdir -p apps`
+* `pnpm create next-app apps/web --ts --tailwind --eslint --app --src-dir --import-alias "@/*"`
+
+### FE dependencies to install (apps/web)
+
+Core UI utilities:
+
+* `pnpm -C apps/web add clsx tailwind-merge class-variance-authority`
+
+UI components foundation:
+
+* shadcn/ui uses Radix:
+
+  * `pnpm -C apps/web add @radix-ui/react-dialog @radix-ui/react-dropdown-menu @radix-ui/react-slot @radix-ui/react-navigation-menu @radix-ui/react-separator`
+  * (Tambahkan Radix lain sesuai kebutuhan: accordion, tabs, popover, etc.)
+
+Icons:
+
+* `pnpm -C apps/web add lucide-react`
+
+Motion:
+
+* `pnpm -C apps/web add framer-motion`
+
+Forms (optional, but recommended for waitlist/contact):
+
+* `pnpm -C apps/web add react-hook-form zod @hookform/resolvers`
+
+Queue client (if web enqueues jobs):
+
+* `pnpm -C apps/web add bullmq ioredis`
+
+Logging / monitoring (optional but recommended):
+
+* `pnpm -C apps/web add pino`
+* `pnpm -C apps/web add @sentry/nextjs`
+
+### shadcn/ui (optional installer)
+
+If you want the shadcn CLI:
+
+* `pnpm -C apps/web add -D shadcn-ui`
+  (or follow shadcn’s init flow; depends on your setup)
+
+### FE responsibilities
+
+* Render landing page
+* Public API routes:
+
+  * `/api/jobs` (read)
+  * `/api/ingest/enqueue` (optional admin)
+* Admin “review queue” (later):
+
+  * /admin/pending
+
+---
+
+## H) BE Worker: `apps/worker` (Scraper + Queue Worker)
+
+### Purpose
+
+Runs continuously:
+
+* fetch sources on schedule OR consumes queue jobs
+* parses + normalizes
+* writes to DB (via Prisma or direct SQL)
+* dedup + quality scoring
+
+### Initialize worker package
+
+* `mkdir -p apps/worker`
+* `pnpm -C apps/worker init`
+
+### Install worker dependencies (apps/worker)
+
+Core:
+
+* `pnpm -C apps/worker add bullmq ioredis dotenv`
+
+Scraping:
+
+* `pnpm -C apps/worker add cheerio`
+
+If you need JS-rendered pages:
+
+* `pnpm -C apps/worker add playwright`
+* Then run once: `pnpm -C apps/worker playwright install`
+
+HTTP client:
+
+* `pnpm -C apps/worker add undici`
+  (or axios if you prefer, but undici is lean)
+
+Validation/shared schema:
+
+* `pnpm -C apps/worker add zod`
+* Also use your shared package: `pnpm -C apps/worker add @magangkareer/shared`
+
+DB access options:
+
+### Option 1 (recommended): Use Prisma client from web (share)
+
+* Easiest: create `packages/db` to host Prisma client
+* But if you keep Prisma in `apps/web`, worker can still depend on it with workspace linking (cleaner to make `packages/db`)
+
+**Recommended for cleanliness:** create `packages/db`
+
+---
+
+## I) (Recommended) Create `packages/db` to share Prisma
+
+Structure:
+
+```
+packages/db/
+  prisma/schema.prisma
+  src/client.ts
+  package.json
+```
+
+Install:
+
+* `pnpm -C packages/db add prisma @prisma/client`
+* `pnpm -C packages/db add -D prisma typescript`
+
+Worker + web both depend on it:
+
+* `pnpm -C apps/web add @magangkareer/db`
+* `pnpm -C apps/worker add @magangkareer/db`
+
+This avoids duplicate Prisma setup.
+
+---
+
+## J) Environment Variables (.env)
+
+Create `.env.example` at root:
+
+```
+# Database
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/magangkareer"
+
+# Redis
+REDIS_URL="redis://localhost:6379"
+
+# App
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+
+# Optional: Sentry
+SENTRY_DSN=""
+```
+
+Each app can have its own `.env.local`, but keep canonical in root.
+
+---
+
+## K) Scripts to run (root package.json)
+
+Recommended scripts (conceptual):
+
+* `dev:web` → run Next.js
+* `dev:worker` → run worker in watch mode
+* `db:push` / `db:migrate` / `db:studio`
+
+For worker watch mode, install:
+
+* `pnpm add -D tsx`
+  Then run worker with:
+* `tsx watch src/index.ts`
+
+Install in root:
+
+* `pnpm add -D tsx`
+
+---
+
+## L) What the Worker Actually Does (minimal flows)
+
+**Queue names:**
+
+* `ingest:source`
+* `ingest:page`
+* `dedup:jobs`
+
+**Jobs:**
+
+* `FetchSourceListJob`
+* `FetchPostingJob`
+* `NormalizeJob`
+* `UpsertJob`
+
+---
+
+## M) Complete Install List (copy-friendly)
+
+### Root (dev tools)
+
+* typescript
+* ts-node
+* @types/node
+* dotenv
+* tsx (recommended)
+* eslint + prettier (optional)
+
+### apps/web
+
+* clsx
+* tailwind-merge
+* class-variance-authority
+* lucide-react
+* framer-motion
+* (shadcn/radix) @radix-ui/react-*
+* react-hook-form
+* zod
+* @hookform/resolvers
+* bullmq
+* ioredis
+* @sentry/nextjs (optional)
+* pino (optional)
+
+### apps/worker
+
+* bullmq
+* ioredis
+* dotenv
+* cheerio
+* playwright (optional)
+* undici
+* zod
+* @magangkareer/shared
+* @magangkareer/db
+
+### packages/shared
+
+* zod
+* typescript (dev)
+
+### packages/db
+
+* prisma
+* @prisma/client
+* typescript (dev)
+
+---
+
+Kalau kamu mau, aku bisa tulis versi **“one-shot install commands”** (copy-paste) untuk:
+
+* create folders
+* init apps/packages
+* install deps
+* generate prisma
+* run docker compose
+* run dev
+
+Tapi aku butuh satu info: kamu pakai **pnpm** atau **npm/yarn**?

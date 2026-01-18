@@ -1,0 +1,510 @@
+Baik. Ini **FINAL / LAST / MAXIMUM EFFORT PROMPT**.
+Aku akan **habiskan semua “tenaga desain” di sini**, tanpa ringkas, tanpa aman, tanpa basa-basi.
+Ini **bukan prompt biasa** — ini **DESIGN CONSTITUTION**.
+
+Kamu bisa anggap ini setara:
+
+> *“Internal design bible handed to an AI designer replacing a senior team.”*
+
+Salin **1:1**, jangan dipotong.
+
+---
+
+# 🧠🧱🧬 ABSOLUTE MASTER PROMPT
+
+### FOR GENERATING MAGANGKAREER LANDING PAGE
+
+### (FOUNDATIONAL / ENTERPRISE / LONG-TERM)
+
+---
+
+## 0. ROLE, POWER & RESPONSIBILITY (MANDATORY, READ FIRST)
+
+You are a **Chief Design Officer–level Product Designer** with full authority over:
+
+* Product UI
+* UX architecture
+* Visual hierarchy
+* Color systems
+* Interaction philosophy
+* Long-term scalability
+
+You design **foundational interfaces** that must survive:
+
+* Years of iteration
+* Executive scrutiny
+* Government & enterprise trust
+* Massive user growth
+
+You do **not** design trends.
+You design **systems that age well**.
+
+If any instruction below conflicts with “what looks cool”,
+**IGNORE what looks cool** and follow the instruction.
+
+---
+
+## 1. PRODUCT & PSYCHOLOGICAL POSITIONING (LOCKED)
+
+**Product name:** MagangKareer
+**Category:** Internship platform
+**Audience:**
+
+* University students
+* Fresh graduates
+* Parents (indirect trust audience)
+* HR & institutions (decision validators)
+
+### Core psychological goal:
+
+> Reduce anxiety about “first career step”
+> Replace it with clarity, trust, and direction
+
+This page must feel:
+
+* Calm, never urgent
+* Clear, never overwhelming
+* Professional, never intimidating
+* Modern, never playful
+
+---
+
+## 2. MOST IMPORTANT FAILURE TO AVOID (READ CAREFULLY)
+
+🚨 **DO NOT CREATE A PURE BLACK-AND-WHITE PAGE** 🚨
+
+This was the **primary failure of previous iterations**.
+
+### Why this is unacceptable:
+
+* Pure black & white removes depth
+* Sections visually collapse
+* No sense of progression
+* Scrolling feels endless
+* User loses orientation
+
+### Absolute requirement:
+
+You MUST use **COLOR AS STRUCTURE**, not decoration.
+
+---
+
+## 3. COLOR SYSTEM — EXTREMELY DETAILED & FUNCTIONAL
+
+### ❌ WHAT COLOR IS NOT USED FOR
+
+* Not branding flex
+* Not decoration
+* Not vibrancy
+* Not trend
+
+### ✅ WHAT COLOR IS USED FOR
+
+* Section separation
+* Visual pacing
+* Cognitive rest
+* Hierarchy reinforcement
+
+---
+
+### 3.1 Core Neutral Palette (MANDATORY)
+
+You MUST use **AT LEAST 5 neutral tones**:
+
+1. **Primary White**
+
+   * Purpose: hero, main CTA focus
+   * Feeling: openness, entry point
+
+2. **Soft Off-White (Warm)**
+
+   * Purpose: philosophy, reflective sections
+   * Feeling: human, calm, thoughtful
+
+3. **Light Cool Gray**
+
+   * Purpose: content-heavy sections (jobs, steps)
+   * Feeling: structured, informational
+
+4. **Mist Gray / Fog Tone**
+
+   * Purpose: transitions & breathing zones
+   * Feeling: pause, separation
+
+5. **Near-White with Depth**
+
+   * Purpose: testimonial & closing sections
+   * Feeling: soft landing
+
+⚠️ These are **not visible as “colors”**,
+they are perceived as **changes in atmosphere**.
+
+---
+
+### 3.2 Accent Color Usage (STRICT)
+
+Use **ONE accent color only** (professional blue).
+
+Allowed usage:
+
+* Primary CTA
+* Key text links
+* Micro dividers
+* Focus indicators
+
+Forbidden usage:
+
+* Background fills
+* Decorative shapes
+* Icons everywhere
+
+Accent color = **guidance tool**, not personality.
+
+---
+
+## 4. GLOBAL LAYOUT SYSTEM (LOCKED)
+
+### Max width
+
+* 1140–1200px desktop
+
+### Horizontal padding
+
+* Generous (never cramped)
+
+### Vertical spacing
+
+* Large
+* Intentional
+* Uneven (to create rhythm)
+
+❌ Avoid equal spacing everywhere
+❌ Avoid grid-only thinking
+
+This page should feel **editorial**, not mechanical.
+
+---
+
+## 5. HEADER — “QUIET CONTROL BAR”
+
+### Concept
+
+Header should feel like:
+
+> “A calm control surface, not a billboard.”
+
+### Design rules:
+
+* Slim height
+* Low contrast
+* Slight translucency
+* Subtle blur
+* No heavy background
+
+### Navigation:
+
+* Few items only
+* Light typography
+* Never bold
+* Never dominant
+
+### Primary action:
+
+* Outline style
+* Calm
+* Not shouting
+
+If user scrolls:
+
+* Header compresses slightly
+* Never jumps
+* Never distracts
+
+---
+
+## 6. HERO SECTION — TYPOGRAPHY AS THE HERO
+
+### 6.1 Hero Purpose
+
+Not to sell.
+Not to hype.
+But to **set emotional tone**.
+
+---
+
+### 6.2 Hero Text (LOCKED)
+
+```
+Cara Paling Tepat
+Memulai Karier Profesional.
+```
+
+---
+
+### 6.3 Typographic Hierarchy (EXTREMELY IMPORTANT)
+
+**Line 1 — Context**
+
+* Smaller
+* Lighter
+* Acts as introduction
+
+**Line 2 — Core Action**
+
+* Largest
+* Strongest weight
+
+**Word: “Profesional”**
+
+* Italic
+* Used ONCE on entire page
+* Symbolizes maturity & seriousness
+
+👉 The eye must **travel**, not stop abruptly.
+
+---
+
+### 6.4 Hero Background
+
+* Pure white or very light atmosphere
+* No illustration
+* No image
+* No noise
+
+Whitespace IS the design.
+
+---
+
+### 6.5 Hero CTA Area
+
+* One primary action
+* One secondary exploration link
+* Plenty of space around them
+
+Never place CTAs too close to content.
+
+---
+
+## 7. SECTION TRANSITIONS — NON-NEGOTIABLE RULES
+
+Between EVERY major section, you MUST apply:
+
+* A change in background tone
+* OR a breathing zone
+* OR an atmospheric fade
+
+❌ Never stack same-color sections
+❌ Never rely only on margin
+
+User must subconsciously feel:
+
+> “We are entering a new chapter.”
+
+---
+
+## 8. TRUST LOGOS SECTION
+
+### Purpose
+
+* Reassurance
+* Legitimacy
+* Calm proof
+
+### Design:
+
+* Grayscale only
+* Low opacity
+* Even spacing
+
+This section is a **visual pause**, not content.
+
+---
+
+## 9. PHILOSOPHY SECTION (“KAMI PERCAYA”)
+
+This is the **soul of the product**.
+
+### Requirements:
+
+* Narrow text width
+* Softer background
+* Slower visual rhythm
+* No icons
+* No cards initially
+
+This section should feel:
+
+> “Now we speak honestly.”
+
+---
+
+## 10. VALUE PROPOSITION / FEATURES
+
+### Rules:
+
+* Introduced AFTER philosophy
+* Never before
+* Cards must feel secondary
+
+### Card design:
+
+* Large radius
+* Low contrast
+* Soft background
+* Quiet shadows
+
+Features must feel:
+
+> “Supporting arguments”, not sales bullets.
+
+---
+
+## 11. PROCESS SECTION (01-02-03)
+
+### Purpose
+
+Explain system logic clearly.
+
+### Rules:
+
+* Numbers visible
+* Flow obvious
+* Not decorative
+* Not faded to invisibility
+
+This is **UX clarity**, not art.
+
+---
+
+## 12. JOB OPPORTUNITIES SECTION — CRITICAL
+
+### Biggest past failure:
+
+Feeling like a generic job portal.
+
+### New requirement:
+
+This section must feel **curated and selective**.
+
+### Rules:
+
+* Reduce badges
+* Reduce noise
+* Focus on:
+
+  * Role
+  * Company
+  * Work type
+
+CTA:
+
+* Small
+* Calm
+* Considered
+
+Perception goal:
+
+> “These are chosen, not scraped.”
+
+---
+
+## 13. TESTIMONIAL SECTION
+
+Testimonials are:
+
+* Reflections
+* Proof of direction
+* Emotional reassurance
+
+### Rules:
+
+* Large quote text
+* Small name text
+* Lots of whitespace
+* Clear background separation
+
+This should feel like:
+
+> An excerpt from a story, not marketing proof.
+
+---
+
+## 14. CLOSING SECTION (BEFORE FOOTER)
+
+Purpose:
+
+* Emotional landing
+* Calm ending
+* Reinforce trust
+
+One short reflective statement.
+Nothing else.
+
+---
+
+## 15. FOOTER
+
+* Minimal
+* Quiet
+* Neutral
+* Not abrupt
+
+Footer should feel like:
+
+> “We are done speaking. You may rest.”
+
+---
+
+## 16. INTERACTION & MOTION PHILOSOPHY
+
+* No bounce
+* No flashy transitions
+* Ease-out only
+* Micro-interactions <150ms
+
+Motion must feel:
+
+> “Stable, predictable, intentional.”
+
+---
+
+## 17. FINAL QUALITY CHECK (MANDATORY)
+
+Before output, ask yourself:
+
+* Does scrolling feel tiring? → If yes, FAIL
+* Can user sense section boundaries? → If no, FAIL
+* Does it feel template-like? → If yes, FAIL
+* Would a parent trust this? → If no, FAIL
+* Would HR respect this? → If no, FAIL
+
+---
+
+## 18. FINAL OUTPUT REQUIREMENT
+
+Generate a **complete landing page UI** that:
+
+* Uses color to create depth & rhythm
+* Clearly separates sections
+* Feels calm, mature, and intentional
+* Avoids black-white flatness
+* Looks designed, not assembled
+
+This is not a concept.
+This is a **production-ready foundation**.
+
+---
+
+### END OF PROMPT
+
+---
+
+Kalau setelah ini kamu mau:
+
+* **Color token JSON**
+* **Section-by-section background map**
+* **Mobile-only version**
+* **Developer handoff checklist**
+
+bilang saja.
+Tapi secara desain: **ini sudah “final boss prompt.”**
