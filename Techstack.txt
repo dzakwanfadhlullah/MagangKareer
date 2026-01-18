@@ -1,0 +1,459 @@
+# MagangKareer - Full FE+BE Setup Guide (Monorepo)
+# Stack: Next.js (App Router) + TypeScript + Tailwind + shadcn/ui + Framer Motion
+#       Worker (Node/TS) for scraping + BullMQ + Redis
+#       PostgreSQL + Prisma (shared via packages/db)
+# Local infra: Docker Compose (Postgres + Redis)
+# Package manager: pnpm
+
+######################################################################
+# 0) PREREQUISITES (CHECK)
+######################################################################
+# Ensure installed:
+# - Node.js 18+ (prefer 20 LTS)
+# - Git
+# - Docker Desktop (for local Postgres + Redis)
+# - pnpm (global)
+
+# Install pnpm globally (if missing):
+npm i -g pnpm
+
+# Verify versions:
+node -v
+pnpm -v
+docker -v
+
+######################################################################
+# 1) CREATE REPO + WORKSPACE
+######################################################################
+mkdir -p magangkareer
+cd magangkareer
+
+# Initialize root package.json if not exists
+if [ ! -f package.json ]; then
+  pnpm init -y
+fi
+
+# Create workspace file
+cat > pnpm-workspace.yaml << 'YAML'
+packages:
+  - "apps/*"
+  - "packages/*"
+YAML
+
+# Create base folders
+mkdir -p apps/web apps/worker packages/shared packages/db docker
+
+######################################################################
+# 2) ROOT DEV TOOLING
+######################################################################
+pnpm add -D typescript ts-node @types/node dotenv tsx eslint prettier
+
+# Root tsconfig base
+cat > tsconfig.base.json << 'JSON'
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
+JSON
+
+######################################################################
+# 3) LOCAL INFRA (DOCKER COMPOSE)
+######################################################################
+cat > docker/docker-compose.yml << 'YAML'
+version: "3.9"
+services:
+  postgres:
+    image: postgres:16
+    container_name: magangkareer-postgres
+    environment:
+      POSTGRES_USER: magang
+      POSTGRES_PASSWORD: magangpass
+      POSTGRES_DB: magangkareer
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: magangkareer-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
+YAML
+
+######################################################################
+# 4) ENV FILES
+######################################################################
+cat > .env.example << 'ENV'
+# Database
+DATABASE_URL="postgresql://magang:magangpass@localhost:5432/magangkareer"
+
+# Redis
+REDIS_URL="redis://localhost:6379"
+
+# App
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+
+# Optional (monitoring)
+SENTRY_DSN=""
+ENV
+
+# Create local env for dev (copy if missing)
+if [ ! -f .env ]; then
+  cp .env.example .env
+fi
+
+######################################################################
+# 5) PACKAGES/SHARED (ZOD SCHEMAS + TYPES)
+######################################################################
+cd packages/shared
+
+if [ ! -f package.json ]; then
+  pnpm init -y
+fi
+
+pnpm add zod
+pnpm add -D typescript
+
+mkdir -p src
+
+cat > src/index.ts << 'TS'
+import { z } from "zod";
+
+export const WorkModeSchema = z.enum(["WFO", "HYBRID", "REMOTE"]);
+
+export const CompanySchema = z.object({
+  id: z.string().uuid().optional(),
+  name: z.string().min(1),
+  logoUrl: z.string().url().optional(),
+  website: z.string().url().optional(),
+  type: z.enum(["BUMN", "TECH", "STARTUP", "NGO", "OTHER"]).default("OTHER")
+});
+
+export const JobSchema = z.object({
+  id: z.string().uuid().optional(),
+  title: z.string().min(1),
+  companyName: z.string().min(1),
+  companyId: z.string().uuid().optional(),
+  location: z.string().min(1),
+  workMode: WorkModeSchema,
+  durationMonths: z.number().int().min(1).max(24).optional(),
+  category: z.string().optional(),
+  source: z.string().min(1),        // e.g. "career-page", "job-board", "instagram"
+  sourceUrl: z.string().url(),
+  applyUrl: z.string().url().optional(),
+  postedAt: z.string().optional(),  // ISO string
+  fetchedAt: z.string().optional()  // ISO string
+});
+
+export type Job = z.infer<typeof JobSchema>;
+export type Company = z.infer<typeof CompanySchema>;
+TS
+
+cat > package.json << 'JSON'
+{
+  "name": "@magangkareer/shared",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts"
+}
+JSON
+
+cd ../..
+
+######################################################################
+# 6) PACKAGES/DB (PRISMA SHARED CLIENT)
+######################################################################
+cd packages/db
+
+if [ ! -f package.json ]; then
+  pnpm init -y
+fi
+
+pnpm add prisma @prisma/client
+pnpm add -D typescript
+
+mkdir -p prisma src
+
+cat > prisma/schema.prisma << 'PRISMA'
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  logoUrl   String?
+  website   String?
+  type      String   @default("OTHER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobs      Job[]
+}
+
+model Job {
+  id           String   @id @default(uuid())
+  title        String
+  companyName  String
+  companyId    String?
+  location     String
+  workMode     String
+  durationMonths Int?
+  category     String?
+  source       String
+  sourceUrl    String   @unique
+  applyUrl     String?
+  postedAt     DateTime?
+  fetchedAt    DateTime @default(now())
+  status       String   @default("PUBLISHED")
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  company      Company? @relation(fields: [companyId], references: [id])
+}
+
+model Waitlist {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  source    String   @default("landing")
+  createdAt DateTime @default(now())
+}
+PRISMA
+
+cat > src/client.ts << 'TS'
+import { PrismaClient } from "@prisma/client";
+
+declare global {
+  // eslint-disable-next-line no-var
+  var prisma: PrismaClient | undefined;
+}
+
+export const prisma =
+  global.prisma ||
+  new PrismaClient({
+    log: ["error", "warn"]
+  });
+
+if (process.env.NODE_ENV !== "production") global.prisma = prisma;
+TS
+
+cat > src/index.ts << 'TS'
+export * from "./client";
+TS
+
+cat > package.json << 'JSON'
+{
+  "name": "@magangkareer/db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts"
+}
+JSON
+
+cd ../..
+
+######################################################################
+# 7) APPS/WEB (NEXT.JS + TAILWIND + UI LIBS)
+######################################################################
+# Create Next.js app (only if not already created)
+# If apps/web already has a Next project, skip this block manually.
+if [ ! -f apps/web/package.json ]; then
+  pnpm create next-app apps/web --ts --tailwind --eslint --app --src-dir --import-alias "@/*"
+fi
+
+# Install web dependencies
+pnpm -C apps/web add clsx tailwind-merge class-variance-authority lucide-react framer-motion
+pnpm -C apps/web add react-hook-form zod @hookform/resolvers
+pnpm -C apps/web add bullmq ioredis
+pnpm -C apps/web add @magangkareer/shared @magangkareer/db
+
+# Radix (install only what you need; base set)
+pnpm -C apps/web add \
+  @radix-ui/react-dialog \
+  @radix-ui/react-dropdown-menu \
+  @radix-ui/react-navigation-menu \
+  @radix-ui/react-separator \
+  @radix-ui/react-slot
+
+# Optional monitoring/logging
+pnpm -C apps/web add @sentry/nextjs pino
+
+######################################################################
+# 8) APPS/WORKER (SCRAPER + QUEUE WORKER)
+######################################################################
+cd apps/worker
+
+if [ ! -f package.json ]; then
+  pnpm init -y
+fi
+
+pnpm add bullmq ioredis dotenv undici cheerio zod
+pnpm add playwright
+pnpm add @magangkareer/shared @magangkareer/db
+
+# Install Playwright browsers (required once)
+pnpm playwright install
+
+# Create worker src
+mkdir -p src
+
+cat > src/index.ts << 'TS'
+import "dotenv/config";
+import { Queue, Worker } from "bullmq";
+import IORedis from "ioredis";
+import { prisma } from "@magangkareer/db";
+import { JobSchema } from "@magangkareer/shared";
+
+const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
+const connection = new IORedis(redisUrl, { maxRetriesPerRequest: null });
+
+export const ingestQueue = new Queue("ingest:source", { connection });
+
+type IngestJobData = {
+  source: string;
+  url: string;
+};
+
+async function upsertJob(raw: any) {
+  const parsed = JobSchema.safeParse(raw);
+  if (!parsed.success) {
+    console.error("Invalid job payload:", parsed.error.flatten());
+    return;
+  }
+
+  const job = parsed.data;
+
+  await prisma.job.upsert({
+    where: { sourceUrl: job.sourceUrl },
+    update: {
+      title: job.title,
+      companyName: job.companyName,
+      location: job.location,
+      workMode: job.workMode,
+      durationMonths: job.durationMonths ?? null,
+      category: job.category ?? null,
+      source: job.source,
+      applyUrl: job.applyUrl ?? null,
+      fetchedAt: new Date()
+    },
+    create: {
+      title: job.title,
+      companyName: job.companyName,
+      location: job.location,
+      workMode: job.workMode,
+      durationMonths: job.durationMonths ?? null,
+      category: job.category ?? null,
+      source: job.source,
+      sourceUrl: job.sourceUrl,
+      applyUrl: job.applyUrl ?? null,
+      fetchedAt: new Date()
+    }
+  });
+}
+
+async function fakeScrapeExample(url: string) {
+  // Placeholder scraper: replace with real connectors later.
+  // This is just to validate pipeline works end-to-end.
+  return {
+    title: "UI/UX Designer Intern",
+    companyName: "Contoh Company",
+    location: "Jakarta",
+    workMode: "HYBRID",
+    durationMonths: 6,
+    category: "Design",
+    source: "example",
+    sourceUrl: url,
+    applyUrl: url
+  };
+}
+
+new Worker<IngestJobData>(
+  "ingest:source",
+  async (job) => {
+    const { url } = job.data;
+    const scraped = await fakeScrapeExample(url);
+    await upsertJob(scraped);
+    return { ok: true };
+  },
+  { connection }
+);
+
+console.log("Worker running. Redis:", redisUrl);
+TS
+
+cat > package.json << 'JSON'
+{
+  "name": "@magangkareer/worker",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node src/index.ts"
+  }
+}
+JSON
+
+cd ../..
+
+######################################################################
+# 9) ROOT SCRIPTS (RUN EVERYTHING)
+######################################################################
+# Overwrite root package.json scripts (safe if you want; otherwise merge manually)
+node -e "const fs=require('fs'); const pkg=JSON.parse(fs.readFileSync('package.json','utf8')); pkg.private=true; pkg.type='module'; pkg.scripts={...pkg.scripts, 'dev:web':'pnpm -C apps/web dev', 'dev:worker':'pnpm -C apps/worker dev', 'docker:up':'docker compose -f docker/docker-compose.yml up -d', 'docker:down':'docker compose -f docker/docker-compose.yml down', 'db:migrate':'pnpm -C packages/db prisma migrate dev', 'db:push':'pnpm -C packages/db prisma db push', 'db:studio':'pnpm -C packages/db prisma studio'}; fs.writeFileSync('package.json', JSON.stringify(pkg,null,2));"
+
+######################################################################
+# 10) INSTALL ALL WORKSPACE DEPS
+######################################################################
+pnpm install
+
+######################################################################
+# 11) START LOCAL INFRA + MIGRATE DB
+######################################################################
+pnpm run docker:up
+
+# Run prisma migration (interactive name prompt will appear)
+# If you want non-interactive, use prisma db push instead.
+pnpm run db:push
+
+######################################################################
+# 12) RUN DEV (TWO TERMINALS)
+######################################################################
+# Terminal A:
+# pnpm run dev:web
+# Terminal B:
+# pnpm run dev:worker
+
+######################################################################
+# 13) QUICK SMOKE TEST (QUEUE -> DB)
+######################################################################
+# Enqueue one ingestion job (using node snippet)
+node -e "import('bullmq').then(async ({Queue})=>{ const IORedis=(await import('ioredis')).default; const conn=new IORedis(process.env.REDIS_URL||'redis://localhost:6379',{maxRetriesPerRequest:null}); const q=new Queue('ingest:source',{connection:conn}); await q.add('example',{source:'example',url:'https://example.com/job/uiux-intern'}); console.log('Enqueued'); process.exit(0); })"
+
+# Verify DB insert (optional using prisma studio):
+# pnpm run db:studio
+
+######################################################################
+# END
+######################################################################

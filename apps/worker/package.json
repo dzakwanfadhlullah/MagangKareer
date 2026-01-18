@@ -1,0 +1,19 @@
+{
+    "name": "@magangkareer/worker",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "start": "node src/index.ts"
+    },
+    "dependencies": {
+        "bullmq": "^5.66.5",
+        "cheerio": "^1.1.2",
+        "dotenv": "^17.2.3",
+        "ioredis": "^5.9.2",
+        "playwright": "^1.57.0",
+        "undici": "^7.18.2",
+        "zod": "^4.3.5"
+    }
+}

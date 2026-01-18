@@ -1,0 +1,900 @@
+# MagangKareer HTML → Next.js Migration Guide
+# Full Implementation for Pixel-Perfect Parity
+
+================================================================================
+## OVERVIEW
+================================================================================
+Target: Migrate `code.html` landing page to Next.js (App Router) with:
+- TypeScript
+- Tailwind CSS v4
+- shadcn/ui primitives
+- Framer Motion animations
+
+Result: EXACT visual parity with the original HTML.
+
+================================================================================
+## PHASE 1: TAILWIND CONFIGURATION
+================================================================================
+### File: apps/web/tailwind.config.ts
+
+Create/update with the EXACT color tokens from code.html:
+
+```typescript
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  darkMode: "class",
+  content: [
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: "#0F172A",
+        "primary-soft": "#334155",
+        accent: "#3B82F6",
+        // 5 Neutral Tones System (PromptGuide §3.1)
+        "tone-1-white": "#FFFFFF",
+        "tone-2-warm": "#FAF9F7",
+        "tone-3-cool": "#F8FAFC",
+        "tone-4-mist": "#F1F5F9",
+        "tone-5-depth": "#FAFAF9",
+        "text-main": "#0F172A",
+        "text-muted": "#64748B",
+        "border-light": "#E2E8F0",
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
+      },
+      boxShadow: {
+        subtle: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        soft: "0 10px 40px -10px rgba(0,0,0,0.05)",
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+```
+
+### File: apps/web/src/app/globals.css
+
+Add the gradient transition classes:
+
+```css
+@import "tailwindcss";
+
+/* Section Transition Gradients (PromptGuide §7) */
+.transition-white-to-mist {
+  background: linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%);
+}
+.transition-mist-to-warm {
+  background: linear-gradient(to bottom, #f1f5f9 0%, #faf9f7 100%);
+}
+.transition-warm-to-white {
+  background: linear-gradient(to bottom, #faf9f7 0%, #faf9f7 40%, #ffffff 100%);
+}
+.transition-white-to-cool {
+  background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
+}
+.transition-cool-to-depth {
+  background: linear-gradient(to bottom, #f8fafc 0%, #fafaf9 100%);
+}
+.transition-depth-to-mist {
+  background: linear-gradient(to bottom, #fafaf9 0%, #f1f5f9 100%);
+}
+.transition-mist-to-white {
+  background: linear-gradient(to bottom, #f1f5f9 0%, #ffffff 100%);
+}
+
+/* Backdrop blur support */
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+```
+
+================================================================================
+## PHASE 2: FONTS SETUP
+================================================================================
+### File: apps/web/src/app/layout.tsx
+
+```typescript
+import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
+});
+
+export const metadata: Metadata = {
+  title: "MagangKareer - Mulai Karier Profesional Anda",
+  description: "Platform magang profesional #1 di Indonesia",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="id" className="light">
+      <body
+        className={`${inter.variable} ${playfair.variable} font-sans antialiased selection:bg-gray-200 selection:text-black`}
+      >
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+================================================================================
+## PHASE 3: COMPONENT STRUCTURE
+================================================================================
+Create the following component files in `apps/web/src/components/`:
+
+### Directory Structure:
+```
+src/
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx
+│   │   └── Footer.tsx
+│   ├── sections/
+│   │   ├── HeroSection.tsx
+│   │   ├── TrustLogosSection.tsx
+│   │   ├── PhilosophySection.tsx
+│   │   ├── ProcessSection.tsx
+│   │   ├── JobsSection.tsx
+│   │   ├── TestimonialSection.tsx
+│   │   └── ClosingSection.tsx
+│   └── ui/
+│       ├── Button.tsx
+│       └── JobCard.tsx
+└── app/
+    ├── layout.tsx
+    ├── globals.css
+    └── page.tsx
+```
+
+================================================================================
+## PHASE 4: COMPONENT IMPLEMENTATIONS
+================================================================================
+
+### 4.1 Navbar Component
+File: apps/web/src/components/layout/Navbar.tsx
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+export function Navbar() {
+  return (
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="fixed top-0 left-0 right-0 z-50 h-[56px] bg-white/70 backdrop-blur-md transition-all duration-300 border-b border-black/5"
+    >
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity"
+        >
+          <span className="material-symbols-outlined text-xl text-slate-800">
+            work_outline
+          </span>
+          <span className="text-lg font-semibold tracking-tight text-slate-900">
+            MagangKareer
+          </span>
+        </Link>
+
+        {/* Navigation Links */}
+        <div className="hidden items-center gap-8 md:flex">
+          <Link
+            href="#tentang"
+            className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+          >
+            Tentang
+          </Link>
+          <Link
+            href="#lowongan"
+            className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+          >
+            Lowongan
+          </Link>
+          <Link
+            href="#testimoni"
+            className="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+          >
+            Cerita
+          </Link>
+        </div>
+
+        {/* Auth Buttons */}
+        <div className="flex items-center gap-6">
+          <Link
+            href="#"
+            className="hidden text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 sm:block"
+          >
+            Masuk
+          </Link>
+          <Link
+            href="#"
+            className="inline-flex h-8 items-center justify-center rounded-full border border-slate-200 bg-transparent px-5 text-sm font-medium text-slate-700 transition-all hover:border-slate-800 hover:text-slate-900"
+          >
+            Daftar
+          </Link>
+        </div>
+      </div>
+    </motion.nav>
+  );
+}
+```
+
+### 4.2 Hero Section
+File: apps/web/src/components/sections/HeroSection.tsx
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+export function HeroSection() {
+  return (
+    <section className="relative flex min-h-[85vh] flex-col items-center justify-center px-6 pt-32 pb-20 transition-white-to-mist">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="mx-auto max-w-4xl text-center"
+      >
+        <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          Batch 12 Open
+        </p>
+        <h1 className="mb-8 text-slate-900">
+          <span className="block text-3xl md:text-4xl font-medium tracking-tight text-slate-600 mb-2">
+            Cara Paling Tepat
+          </span>
+          <span className="block text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+            Memulai Karier{" "}
+            <span className="font-serif italic font-normal text-slate-800 ml-2">
+              Profesional.
+            </span>
+          </span>
+        </h1>
+        <p className="mx-auto mb-12 max-w-xl text-lg leading-relaxed text-slate-500 font-light">
+          Menghubungkan talenta muda dengan standar industri global. Akses
+          program magang di BUMN dan perusahaan teknologi tanpa bias.
+        </p>
+        <div className="flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
+          <Link
+            href="#lowongan"
+            className="group inline-flex h-12 items-center justify-center rounded-full bg-slate-900 px-8 text-[15px] font-medium text-white transition-all hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-200"
+          >
+            Cari Magang
+          </Link>
+          <Link
+            href="#learn-more"
+            className="group inline-flex items-center gap-2 text-[15px] font-medium text-slate-600 transition-colors hover:text-slate-900"
+          >
+            Pelajari Program
+            <span className="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">
+              arrow_right_alt
+            </span>
+          </Link>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+```
+
+### 4.3 Trust Logos Section
+File: apps/web/src/components/sections/TrustLogosSection.tsx
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+const logos = ["TELKOM", "GOTO", "PERTAMINA", "TRAVELOKA", "BRI"];
+
+export function TrustLogosSection() {
+  return (
+    <section className="transition-mist-to-warm pt-12 pb-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <p className="mb-10 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">
+          Dipercaya Oleh Mitra Industri
+        </p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-50 grayscale mix-blend-multiply transition-all duration-500 hover:grayscale-0 hover:opacity-100"
+        >
+          {logos.map((logo) => (
+            <div
+              key={logo}
+              className="text-xl font-bold text-slate-600 tracking-tight"
+            >
+              {logo}
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+```
+
+### 4.4 Philosophy Section
+File: apps/web/src/components/sections/PhilosophySection.tsx
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+const features = [
+  {
+    title: "Terkurasi Ketat",
+    description:
+      "Hanya menampilkan lowongan yang telah diverifikasi standar mentoring dan kejelasan job desc-nya.",
+  },
+  {
+    title: "Ekosistem Kampus",
+    description:
+      "Terintegrasi dengan sistem akademik untuk konversi SKS dan jadwal yang menghormati waktu kuliah.",
+  },
+  {
+    title: "Jalur Karier",
+    description:
+      "Bukan sekadar magang, melainkan pipeline talent untuk rekrutmen full-time pasca kelulusan.",
+  },
+];
+
+export function PhilosophySection() {
+  return (
+    <section className="py-32 transition-warm-to-white" id="tentang">
+      <div className="mx-auto max-w-2xl px-6 text-center mb-24">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="font-serif text-3xl md:text-4xl italic text-slate-800 mb-6 leading-tight"
+        >
+          "Kami percaya setiap langkah awal harus memiliki arah yang jelas."
+        </motion.h2>
+        <p className="text-lg leading-loose text-slate-500 font-light">
+          Dunia kerja seringkali membingungkan bagi pemula. MagangKareer hadir
+          sebagai kurator peluang, memastikan jembatan antara akademik dan
+          profesional dibangun di atas transparansi dan kualitas.
+        </p>
+      </div>
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-12 md:grid-cols-3">
+          {features.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="group"
+            >
+              <div className="mb-4 text-slate-900 font-semibold text-lg border-l-2 border-slate-200 pl-4 transition-colors group-hover:border-slate-900">
+                {feature.title}
+              </div>
+              <p className="text-slate-500 leading-relaxed pl-[18px]">
+                {feature.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+### 4.5 Process Section
+File: apps/web/src/components/sections/ProcessSection.tsx
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+const steps = [
+  {
+    number: "01",
+    title: "Eksplorasi",
+    description: "Temukan peran yang resonan dengan minat dan jurusan Anda.",
+  },
+  {
+    number: "02",
+    title: "Seleksi",
+    description: "Proses transparan untuk mencocokkan potensi dengan kebutuhan.",
+  },
+  {
+    number: "03",
+    title: "Acelerate",
+    description: "Mentorship nyata dan pengembangan skill profesional.",
+  },
+];
+
+export function ProcessSection() {
+  return (
+    <section className="py-32 transition-white-to-cool">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="relative grid gap-12 md:grid-cols-3 items-start">
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className="relative flex flex-col items-center text-center group"
+            >
+              <span className="text-6xl font-serif italic text-slate-100 mb-4 transition-colors group-hover:text-slate-200">
+                {step.number}
+              </span>
+              <h3 className="mb-2 text-lg font-semibold text-slate-900">
+                {step.title}
+              </h3>
+              <p className="text-sm text-slate-500 max-w-[240px] leading-relaxed">
+                {step.description}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+### 4.6 Job Card Component
+File: apps/web/src/components/ui/JobCard.tsx
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+interface JobCardProps {
+  title: string;
+  company: string;
+  location: string;
+  workMode: string;
+  index?: number;
+}
+
+export function JobCard({
+  title,
+  company,
+  location,
+  workMode,
+  index = 0,
+}: JobCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      viewport={{ once: true }}
+      className="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100"
+    >
+      <div className="mb-6 flex items-start justify-between">
+        <div>
+          <h3 className="text-lg font-bold text-slate-900 group-hover:text-slate-700 transition-colors duration-100">
+            {title}
+          </h3>
+          <p className="text-sm text-slate-500 mt-1">{company}</p>
+        </div>
+      </div>
+      <div className="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+        <span className="text-xs font-medium text-slate-400">
+          {location} • {workMode}
+        </span>
+        <Link
+          href="#"
+          className="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all duration-100 group-hover:opacity-100 group-hover:translate-x-0"
+        >
+          Detail
+        </Link>
+      </div>
+    </motion.div>
+  );
+}
+```
+
+### 4.7 Jobs Section
+File: apps/web/src/components/sections/JobsSection.tsx
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { JobCard } from "@/components/ui/JobCard";
+
+const jobs = [
+  { title: "UI/UX Designer", company: "GoTo Financial", location: "Jakarta", workMode: "WFO" },
+  { title: "Data Analyst", company: "Telkom Indonesia", location: "Bandung", workMode: "Hybrid" },
+  { title: "Software Engineer", company: "Bank Central Asia", location: "Tangerang", workMode: "WFO" },
+  { title: "Product Manager", company: "Traveloka", location: "Jakarta", workMode: "Remote" },
+  { title: "Marketing Intern", company: "Shopee", location: "Jakarta", workMode: "Hybrid" },
+  { title: "Finance Intern", company: "Bank Mandiri", location: "Jakarta", workMode: "WFO" },
+];
+
+export function JobsSection() {
+  return (
+    <section className="py-32 bg-tone-3-cool" id="lowongan">
+      <div className="mx-auto max-w-7xl px-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
+          className="mb-16 flex items-end justify-between border-b border-slate-200 pb-6"
+        >
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900">
+            Peluang Terkini
+          </h2>
+          <Link
+            href="#"
+            className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
+          >
+            Lihat Semua →
+          </Link>
+        </motion.div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {jobs.map((job, index) => (
+            <JobCard key={job.title + job.company} {...job} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+### 4.8 Testimonial Section
+File: apps/web/src/components/sections/TestimonialSection.tsx
+
+```tsx
+"use client";
+
+import Image from "next/image";
+import { motion } from "framer-motion";
+
+export function TestimonialSection() {
+  return (
+    <section className="py-32 transition-cool-to-depth" id="testimoni">
+      <div className="mx-auto max-w-4xl px-6 text-center">
+        <motion.blockquote
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <span className="font-serif text-3xl md:text-5xl leading-tight text-slate-900 block mb-8">
+            "MagangKareer membantu saya mendapatkan posisi di perusahaan impian.
+            Prosesnya transparan dan mentornya sangat suportif."
+          </span>
+        </motion.blockquote>
+        <div className="flex flex-col items-center justify-center gap-3">
+          <div className="h-12 w-12 overflow-hidden rounded-full grayscale opacity-80">
+            <Image
+              alt="Sarah Amalia"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-bHUAm6--kYU1lUTHqNQwJkeuugl64ev9gDlGCRoBAnkp7vZOBWS3_0CTMFji18IYiGiND4D3J7KAH5Jy8kk7oqQH2HwuvjrWQSZUo4Kv0ukKC3qQUkTOsxpFc0aF9ZYilx2Tdic2EoOmDeOQlPY2Zx5PfkN3IvDBg-ruic355uOoV4rYbgD_98aJb6EhJIUtThSVuowCnet42u2bOE2P58TgBRA5TEOLIxzdcPzYoXFqkmem1qV_0mB9_0UY-JMCmLZUdGYv7LI"
+              width={48}
+              height={48}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="text-center">
+            <div className="text-sm font-semibold text-slate-900 uppercase tracking-widest">
+              Sarah Amalia
+            </div>
+            <div className="text-xs text-slate-400 font-medium mt-1">
+              Ex-Intern Telkom Indonesia
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+### 4.9 Closing Section
+File: apps/web/src/components/sections/ClosingSection.tsx
+
+```tsx
+"use client";
+
+import { motion } from "framer-motion";
+
+export function ClosingSection() {
+  return (
+    <section className="py-20 transition-depth-to-mist">
+      <div className="mx-auto max-w-3xl px-6 text-center">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-xl md:text-2xl font-medium text-slate-700 leading-normal"
+        >
+          MagangKareer dirancang untuk membuat langkah awal karier lebih jelas
+          dan bertanggung jawab.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+```
+
+### 4.10 Footer Component
+File: apps/web/src/components/layout/Footer.tsx
+
+```tsx
+import Link from "next/link";
+
+const footerLinks = {
+  perusahaan: [
+    { label: "Tentang Kami", href: "#" },
+    { label: "Karier", href: "#" },
+    { label: "Blog", href: "#" },
+  ],
+  mahasiswa: [
+    { label: "Cari Lowongan", href: "#" },
+    { label: "Panduan Magang", href: "#" },
+    { label: "Kalkulator Gaji", href: "#" },
+  ],
+  kontak: [
+    { label: "hello@magangkareer.id", href: "mailto:hello@magangkareer.id" },
+    { label: "Jakarta Selatan, Indonesia", href: null },
+  ],
+};
+
+export function Footer() {
+  return (
+    <footer className="transition-mist-to-white pb-12 pt-16">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-4 lg:gap-8 mb-16">
+          {/* Brand */}
+          <div className="col-span-1 md:col-span-1">
+            <div className="flex items-center gap-2 mb-6">
+              <span className="text-lg font-bold text-slate-900">
+                MagangKareer
+              </span>
+            </div>
+            <p className="text-sm text-slate-500 leading-relaxed">
+              Platform magang profesional #1 di Indonesia untuk mahasiswa dan
+              fresh graduates.
+            </p>
+          </div>
+
+          {/* Perusahaan */}
+          <div>
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">
+              Perusahaan
+            </h3>
+            <ul className="space-y-4">
+              {footerLinks.perusahaan.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-slate-500 hover:text-slate-900 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Mahasiswa */}
+          <div>
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">
+              Mahasiswa
+            </h3>
+            <ul className="space-y-4">
+              {footerLinks.mahasiswa.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-slate-500 hover:text-slate-900 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Kontak */}
+          <div>
+            <h3 className="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">
+              Kontak
+            </h3>
+            <ul className="space-y-4">
+              {footerLinks.kontak.map((item) => (
+                <li key={item.label}>
+                  {item.href ? (
+                    <Link
+                      href={item.href}
+                      className="text-sm text-slate-500 hover:text-slate-900 transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <span className="text-sm text-slate-500">{item.label}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-50">
+          <p className="text-xs text-slate-400">
+            © 2024 MagangKareer. All rights reserved.
+          </p>
+          <div className="mt-4 md:mt-0 flex gap-6">
+            <Link
+              href="#"
+              className="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors"
+            >
+              IG
+            </Link>
+            <Link
+              href="#"
+              className="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors"
+            >
+              TW
+            </Link>
+            <Link
+              href="#"
+              className="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors"
+            >
+              LI
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+```
+
+================================================================================
+## PHASE 5: MAIN PAGE ASSEMBLY
+================================================================================
+### File: apps/web/src/app/page.tsx
+
+```tsx
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { TrustLogosSection } from "@/components/sections/TrustLogosSection";
+import { PhilosophySection } from "@/components/sections/PhilosophySection";
+import { ProcessSection } from "@/components/sections/ProcessSection";
+import { JobsSection } from "@/components/sections/JobsSection";
+import { TestimonialSection } from "@/components/sections/TestimonialSection";
+import { ClosingSection } from "@/components/sections/ClosingSection";
+
+export default function Home() {
+  return (
+    <>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <TrustLogosSection />
+        <PhilosophySection />
+        <ProcessSection />
+        <JobsSection />
+        <TestimonialSection />
+        <ClosingSection />
+      </main>
+      <Footer />
+    </>
+  );
+}
+```
+
+================================================================================
+## PHASE 6: MATERIAL SYMBOLS SETUP
+================================================================================
+Add Material Symbols font to layout.tsx head or use next/head:
+
+### Option A: Add to globals.css
+```css
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
+```
+
+### Option B: Use lucide-react icons instead (recommended)
+Replace material-symbols-outlined with lucide-react icons:
+- `work_outline` → `<Briefcase />`
+- `arrow_right_alt` → `<ArrowRight />`
+
+================================================================================
+## PHASE 7: NEXT.JS IMAGE CONFIGURATION
+================================================================================
+### File: apps/web/next.config.ts
+
+```typescript
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/aida-public/**",
+      },
+    ],
+  },
+};
+
+export default nextConfig;
+```
+
+================================================================================
+## PHASE 8: VERIFICATION CHECKLIST
+================================================================================
+After implementation, verify each of these:
+
+1. [ ] Run `pnpm dev:web` - no build errors
+2. [ ] Navbar: Fixed, translucent blur, responsive links
+3. [ ] Hero: Typography hierarchy matches (Line 1 smaller, Line 2 bold, "Profesional" italic serif)
+4. [ ] Gradient transitions: Visible color changes between sections when scrolling
+5. [ ] Trust logos: Grayscale by default, color on hover
+6. [ ] Philosophy: Warm background, border-left hover effect on features
+7. [ ] Process: Large serif numbers, centered text
+8. [ ] Jobs: 6 cards, slate hover (not blue), 100ms transition
+9. [ ] Testimonial: Large serif quote, grayscale avatar
+10. [ ] Footer: 4-column layout, proper link styling
+
+================================================================================
+## EXECUTION ORDER
+================================================================================
+1. Update tailwind.config.ts with colors
+2. Update globals.css with gradient classes
+3. Update layout.tsx with fonts
+4. Create component directory structure
+5. Create each component file
+6. Assemble page.tsx
+7. Configure next.config.ts for images
+8. Run and verify
+
+================================================================================
