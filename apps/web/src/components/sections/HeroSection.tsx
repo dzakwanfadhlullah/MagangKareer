@@ -193,6 +193,29 @@ export function HeroSection() {
                         <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                     </Link>
                 </motion.div>
+
+                {/* Stats Counter */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 1.4 }}
+                    className="mt-16 flex flex-wrap items-center justify-center gap-8 md:gap-12"
+                >
+                    <div className="text-center">
+                        <div className="text-2xl md:text-3xl font-bold text-slate-900">500+</div>
+                        <div className="text-xs text-slate-400 font-medium uppercase tracking-wider mt-1">Magang Tersalurkan</div>
+                    </div>
+                    <div className="hidden sm:block w-px h-10 bg-slate-200" />
+                    <div className="text-center">
+                        <div className="text-2xl md:text-3xl font-bold text-slate-900">50+</div>
+                        <div className="text-xs text-slate-400 font-medium uppercase tracking-wider mt-1">Perusahaan Partner</div>
+                    </div>
+                    <div className="hidden sm:block w-px h-10 bg-slate-200" />
+                    <div className="text-center">
+                        <div className="text-2xl md:text-3xl font-bold text-slate-900">98%</div>
+                        <div className="text-xs text-slate-400 font-medium uppercase tracking-wider mt-1">Tingkat Kepuasan</div>
+                    </div>
+                </motion.div>
             </div>
         </section>
     );
