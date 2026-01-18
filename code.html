@@ -46,12 +46,39 @@
             -webkit-backdrop-filter: blur(12px);
         }
 
-        .fade-to-white {
-            background: linear-gradient(to bottom, #F8FAFC, #FFFFFF);
+        /* Section Transition Gradients (PromptGuide §7) */
+        .transition-white-to-mist {
+            background: linear-gradient(to bottom, #FFFFFF 0%, #F1F5F9 100%);
         }
 
-        .fade-to-gray {
-            background: linear-gradient(to bottom, #FFFFFF, #F8FAFC);
+        .transition-mist-to-warm {
+            background: linear-gradient(to bottom, #F1F5F9 0%, #FAF9F7 100%);
+        }
+
+        .transition-warm-to-white {
+            background: linear-gradient(to bottom, #FAF9F7 0%, #FFFFFF 100%);
+        }
+
+        .transition-white-to-cool {
+            background: linear-gradient(to bottom, #FFFFFF 0%, #F8FAFC 100%);
+        }
+
+        .transition-cool-to-depth {
+            background: linear-gradient(to bottom, #F8FAFC 0%, #FAFAF9 100%);
+        }
+
+        .transition-depth-to-mist {
+            background: linear-gradient(to bottom, #FAFAF9 0%, #F1F5F9 100%);
+        }
+
+        .transition-mist-to-white {
+            background: linear-gradient(to bottom, #F1F5F9 0%, #FFFFFF 100%);
+        }
+
+        /* Breathing Zone Divider */
+        .breathing-zone {
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.01), transparent);
         }
     </style>
 </head>
@@ -82,7 +109,8 @@
             </div>
         </div>
     </nav>
-    <section class="relative flex min-h-[85vh] flex-col items-center justify-center px-6 pt-32 pb-20 bg-tone-1-white">
+    <section
+        class="relative flex min-h-[85vh] flex-col items-center justify-center px-6 pt-32 pb-20 transition-white-to-mist">
         <div class="mx-auto max-w-4xl text-center">
             <p class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Batch 12 Open</p>
             <h1 class="mb-8 text-slate-900">
@@ -110,7 +138,7 @@
             </div>
         </div>
     </section>
-    <section class="border-b border-slate-100 bg-tone-4-mist pt-12 pb-24">
+    <section class="transition-mist-to-warm pt-12 pb-24">
         <div class="mx-auto max-w-7xl px-6">
             <p class="mb-10 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">Dipercaya Oleh
                 Mitra Industri</p>
@@ -124,7 +152,7 @@
             </div>
         </div>
     </section>
-    <section class="py-32 bg-tone-2-warm" id="tentang">
+    <section class="py-32 transition-warm-to-white" id="tentang">
         <div class="mx-auto max-w-2xl px-6 text-center mb-24">
             <h2 class="font-serif text-3xl md:text-4xl italic text-slate-800 mb-6 leading-tight">"Kami percaya setiap
                 langkah awal harus memiliki arah yang jelas."</h2>
@@ -165,7 +193,7 @@
             </div>
         </div>
     </section>
-    <section class="py-32 bg-tone-1-white">
+    <section class="py-32 transition-white-to-cool">
         <div class="mx-auto max-w-7xl px-6">
             <div class="relative grid gap-12 md:grid-cols-3 items-start">
                 <div class="relative flex flex-col items-center text-center group">
@@ -293,7 +321,7 @@
             </div>
         </div>
     </section>
-    <section class="py-32 bg-tone-5-depth" id="testimoni">
+    <section class="py-32 transition-cool-to-depth" id="testimoni">
         <div class="mx-auto max-w-4xl px-6 text-center">
             <blockquote class="mb-12">
                 <span class="font-serif text-3xl md:text-5xl leading-tight text-slate-900 block mb-8">
@@ -314,14 +342,14 @@
             </div>
         </div>
     </section>
-    <section class="py-20 bg-tone-4-mist border-t border-slate-100">
+    <section class="py-20 transition-depth-to-mist">
         <div class="mx-auto max-w-3xl px-6 text-center">
             <p class="text-xl md:text-2xl font-medium text-slate-700 leading-normal">
                 MagangKareer dirancang untuk membuat langkah awal karier lebih jelas dan bertanggung jawab.
             </p>
         </div>
     </section>
-    <footer class="bg-white pb-12 pt-16 border-t border-slate-100">
+    <footer class="transition-mist-to-white pb-12 pt-16">
         <div class="mx-auto max-w-7xl px-6">
             <div class="grid gap-12 sm:grid-cols-2 md:grid-cols-4 lg:gap-8 mb-16">
                 <div class="col-span-1 md:col-span-1">
