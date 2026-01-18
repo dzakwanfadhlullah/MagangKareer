@@ -1,21 +1,29 @@
 <!DOCTYPE html>
-<html class="light" lang="id"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>MagangKareer - Mulai Karier Profesional Anda</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MagangKareer - Mulai Karier Profesional Anda</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#0F172A", // Shifted to Slate-900 for authority
+                        "primary": "#0F172A",
                         "primary-soft": "#334155",
-                        "accent": "#3B82F6", // Blue for subtle interaction
-                        "background-light": "#F8FAFC",
-                        "background-white": "#FFFFFF",
+                        "accent": "#3B82F6",
+                        // 5 Neutral Tones System (PromptGuide §3.1)
+                        "tone-1-white": "#FFFFFF",        // Primary White - hero, main CTA
+                        "tone-2-warm": "#FAF9F7",         // Soft Off-White (Warm) - philosophy
+                        "tone-3-cool": "#F8FAFC",         // Light Cool Gray - content sections
+                        "tone-4-mist": "#F1F5F9",         // Mist Gray - transitions
+                        "tone-5-depth": "#FAFAF9",        // Near-White with Depth - testimonial
                         "text-main": "#0F172A",
                         "text-muted": "#64748B",
                         "border-light": "#E2E8F0",
@@ -32,281 +40,340 @@
             },
         }
     </script>
-<style>
+    <style>
         .backdrop-blur-md {
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-        }.fade-to-white {
+        }
+
+        .fade-to-white {
             background: linear-gradient(to bottom, #F8FAFC, #FFFFFF);
         }
+
         .fade-to-gray {
             background: linear-gradient(to bottom, #FFFFFF, #F8FAFC);
         }
     </style>
 </head>
-<body class="bg-background-light font-sans text-text-main antialiased selection:bg-gray-200 selection:text-black">
-<nav class="fixed top-0 left-0 right-0 z-50 h-[56px] bg-white/70 backdrop-blur-md transition-all duration-300 border-b border-black/5">
-<div class="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
-<div class="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
-<span class="material-symbols-outlined text-xl text-slate-800">work_outline</span>
-<span class="text-lg font-semibold tracking-tight text-slate-900">MagangKareer</span>
-</div>
-<div class="hidden items-center gap-8 md:flex">
-<a class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900" href="#tentang">Tentang</a>
-<a class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900" href="#lowongan">Lowongan</a>
-<a class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900" href="#testimoni">Cerita</a>
-</div>
-<div class="flex items-center gap-6">
-<a class="hidden text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 sm:block" href="#">Masuk</a>
-<a class="inline-flex h-8 items-center justify-center rounded-full border border-slate-200 bg-transparent px-5 text-sm font-medium text-slate-700 transition-all hover:border-slate-800 hover:text-slate-900" href="#">
-                Daftar
-            </a>
-</div>
-</div>
-</nav>
-<section class="relative flex min-h-[85vh] flex-col items-center justify-center px-6 pt-32 pb-20 fade-to-gray">
-<div class="mx-auto max-w-4xl text-center">
-<p class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Batch 12 Open</p>
-<h1 class="mb-8 text-slate-900">
-<span class="block text-3xl md:text-4xl font-medium tracking-tight text-slate-600 mb-2">Cara Paling Tepat</span>
-<span class="block text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
-                Memulai Karier <span class="font-serif italic font-normal text-slate-800 ml-2">Profesional.</span>
-</span>
-</h1>
-<p class="mx-auto mb-12 max-w-xl text-lg leading-relaxed text-slate-500 font-light">
-            Menghubungkan talenta muda dengan standar industri global. Akses program magang di BUMN dan perusahaan teknologi tanpa bias.
-        </p>
-<div class="flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
-<a class="group inline-flex h-12 items-center justify-center rounded-full bg-slate-900 px-8 text-[15px] font-medium text-white transition-all hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-200" href="#lowongan">
-                Cari Magang
-            </a>
-<a class="group inline-flex items-center gap-2 text-[15px] font-medium text-slate-600 transition-colors hover:text-slate-900" href="#learn-more">
-                Pelajari Program
-                <span class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_right_alt</span>
-</a>
-</div>
-</div>
-</section>
-<section class="border-b border-slate-100 bg-background-light pt-12 pb-24">
-<div class="mx-auto max-w-7xl px-6">
-<p class="mb-10 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">Dipercaya Oleh Mitra Industri</p>
-<div class="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-50 grayscale mix-blend-multiply transition-all duration-500 hover:grayscale-0 hover:opacity-100">
-<div class="text-xl font-bold text-slate-600 tracking-tight">TELKOM</div>
-<div class="text-xl font-bold text-slate-600 tracking-tight">GOTO</div>
-<div class="text-xl font-bold text-slate-600 tracking-tight">PERTAMINA</div>
-<div class="text-xl font-bold text-slate-600 tracking-tight">TRAVELOKA</div>
-<div class="text-xl font-bold text-slate-600 tracking-tight">BRI</div>
-</div>
-</div>
-</section>
-<section class="py-32 fade-to-white" id="tentang">
-<div class="mx-auto max-w-2xl px-6 text-center mb-24">
-<h2 class="font-serif text-3xl md:text-4xl italic text-slate-800 mb-6 leading-tight">"Kami percaya setiap langkah awal harus memiliki arah yang jelas."</h2>
-<p class="text-lg leading-loose text-slate-500 font-light">
-            Dunia kerja seringkali membingungkan bagi pemula. MagangKareer hadir sebagai kurator peluang, memastikan jembatan antara akademik dan profesional dibangun di atas transparansi dan kualitas.
-        </p>
-</div>
-<div class="mx-auto max-w-7xl px-6">
-<div class="grid gap-12 md:grid-cols-3">
-<div class="group">
-<div class="mb-4 text-slate-900 font-semibold text-lg border-l-2 border-slate-200 pl-4 transition-colors group-hover:border-slate-900">
-                    Terkurasi Ketat
-                </div>
-<p class="text-slate-500 leading-relaxed pl-4.5">
-                    Hanya menampilkan lowongan yang telah diverifikasi standar mentoring dan kejelasan job desc-nya.
-                </p>
-</div>
-<div class="group">
-<div class="mb-4 text-slate-900 font-semibold text-lg border-l-2 border-slate-200 pl-4 transition-colors group-hover:border-slate-900">
-                    Ekosistem Kampus
-                </div>
-<p class="text-slate-500 leading-relaxed pl-4.5">
-                    Terintegrasi dengan sistem akademik untuk konversi SKS dan jadwal yang menghormati waktu kuliah.
-                </p>
-</div>
-<div class="group">
-<div class="mb-4 text-slate-900 font-semibold text-lg border-l-2 border-slate-200 pl-4 transition-colors group-hover:border-slate-900">
-                    Jalur Karier
-                </div>
-<p class="text-slate-500 leading-relaxed pl-4.5">
-                    Bukan sekadar magang, melainkan pipeline talent untuk rekrutmen full-time pasca kelulusan.
-                </p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-32 bg-white">
-<div class="mx-auto max-w-7xl px-6">
-<div class="relative grid gap-12 md:grid-cols-3 items-start">
-<div class="relative flex flex-col items-center text-center group">
-<span class="text-6xl font-serif italic text-slate-100 mb-4 transition-colors group-hover:text-slate-200">01</span>
-<h3 class="mb-2 text-lg font-semibold text-slate-900">Eksplorasi</h3>
-<p class="text-sm text-slate-500 max-w-[240px] leading-relaxed">Temukan peran yang resonan dengan minat dan jurusan Anda.</p>
-</div>
-<div class="relative flex flex-col items-center text-center group">
-<span class="text-6xl font-serif italic text-slate-100 mb-4 transition-colors group-hover:text-slate-200">02</span>
-<h3 class="mb-2 text-lg font-semibold text-slate-900">Seleksi</h3>
-<p class="text-sm text-slate-500 max-w-[240px] leading-relaxed">Proses transparan untuk mencocokkan potensi dengan kebutuhan.</p>
-</div>
-<div class="relative flex flex-col items-center text-center group">
-<span class="text-6xl font-serif italic text-slate-100 mb-4 transition-colors group-hover:text-slate-200">03</span>
-<h3 class="mb-2 text-lg font-semibold text-slate-900">Acelerate</h3>
-<p class="text-sm text-slate-500 max-w-[240px] leading-relaxed">Mentorship nyata dan pengembangan skill profesional.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-32 bg-slate-50" id="lowongan">
-<div class="mx-auto max-w-7xl px-6">
-<div class="mb-16 flex items-end justify-between border-b border-slate-200 pb-6">
-<h2 class="text-2xl font-semibold tracking-tight text-slate-900">Peluang Terkini</h2>
-<a class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="#">Lihat Semua →</a>
-</div>
-<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-<div class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
-<div class="mb-6 flex items-start justify-between">
-<div>
-<h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">UI/UX Designer</h3>
-<p class="text-sm text-slate-500 mt-1">GoTo Financial</p>
-</div>
-</div>
-<div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
-<span class="text-xs font-medium text-slate-400">Jakarta • WFO</span>
-<a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0" href="#">Detail</a>
-</div>
-</div>
-<div class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
-<div class="mb-6 flex items-start justify-between">
-<div>
-<h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Data Analyst</h3>
-<p class="text-sm text-slate-500 mt-1">Telkom Indonesia</p>
-</div>
-</div>
-<div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
-<span class="text-xs font-medium text-slate-400">Bandung • Hybrid</span>
-<a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0" href="#">Detail</a>
-</div>
-</div>
-<div class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
-<div class="mb-6 flex items-start justify-between">
-<div>
-<h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Software Engineer</h3>
-<p class="text-sm text-slate-500 mt-1">Bank Central Asia</p>
-</div>
-</div>
-<div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
-<span class="text-xs font-medium text-slate-400">Tangerang • WFO</span>
-<a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0" href="#">Detail</a>
-</div>
-</div>
-<div class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
-<div class="mb-6 flex items-start justify-between">
-<div>
-<h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Product Manager</h3>
-<p class="text-sm text-slate-500 mt-1">Traveloka</p>
-</div>
-</div>
-<div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
-<span class="text-xs font-medium text-slate-400">Jakarta • Remote</span>
-<a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0" href="#">Detail</a>
-</div>
-</div>
-<div class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
-<div class="mb-6 flex items-start justify-between">
-<div>
-<h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Marketing Intern</h3>
-<p class="text-sm text-slate-500 mt-1">Shopee</p>
-</div>
-</div>
-<div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
-<span class="text-xs font-medium text-slate-400">Jakarta • Hybrid</span>
-<a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0" href="#">Detail</a>
-</div>
-</div>
-<div class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
-<div class="mb-6 flex items-start justify-between">
-<div>
-<h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Finance Intern</h3>
-<p class="text-sm text-slate-500 mt-1">Bank Mandiri</p>
-</div>
-</div>
-<div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
-<span class="text-xs font-medium text-slate-400">Jakarta • WFO</span>
-<a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0" href="#">Detail</a>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-32 bg-white" id="testimoni">
-<div class="mx-auto max-w-4xl px-6 text-center">
-<blockquote class="mb-12">
-<span class="font-serif text-3xl md:text-5xl leading-tight text-slate-900 block mb-8">
-                "MagangKareer membantu saya mendapatkan posisi di perusahaan impian. Prosesnya transparan dan mentornya sangat suportif."
-            </span>
-</blockquote>
-<div class="flex flex-col items-center justify-center gap-3">
-<div class="h-12 w-12 overflow-hidden rounded-full grayscale opacity-80" data-alt="Portrait of a smiling student">
-<img alt="Sarah Amalia" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-bHUAm6--kYU1lUTHqNQwJkeuugl64ev9gDlGCRoBAnkp7vZOBWS3_0CTMFji18IYiGiND4D3J7KAH5Jy8kk7oqQH2HwuvjrWQSZUo4Kv0ukKC3qQUkTOsxpFc0aF9ZYilx2Tdic2EoOmDeOQlPY2Zx5PfkN3IvDBg-ruic355uOoV4rYbgD_98aJb6EhJIUtThSVuowCnet42u2bOE2P58TgBRA5TEOLIxzdcPzYoXFqkmem1qV_0mB9_0UY-JMCmLZUdGYv7LI"/>
-</div>
-<div class="text-center">
-<div class="text-sm font-semibold text-slate-900 uppercase tracking-widest">Sarah Amalia</div>
-<div class="text-xs text-slate-400 font-medium mt-1">Ex-Intern Telkom Indonesia</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-20 bg-slate-50 border-t border-slate-100">
-<div class="mx-auto max-w-3xl px-6 text-center">
-<p class="text-xl md:text-2xl font-medium text-slate-700 leading-normal">
-            MagangKareer dirancang untuk membuat langkah awal karier lebih jelas dan bertanggung jawab.
-        </p>
-</div>
-</section>
-<footer class="bg-white pb-12 pt-16 border-t border-slate-100">
-<div class="mx-auto max-w-7xl px-6">
-<div class="grid gap-12 sm:grid-cols-2 md:grid-cols-4 lg:gap-8 mb-16">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-2 mb-6">
-<span class="text-lg font-bold text-slate-900">MagangKareer</span>
-</div>
-<p class="text-sm text-slate-500 leading-relaxed">
-                    Platform magang profesional #1 di Indonesia untuk mahasiswa dan fresh graduates.
-                </p>
-</div>
-<div>
-<h3 class="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">Perusahaan</h3>
-<ul class="space-y-4">
-<li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Tentang Kami</a></li>
-<li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Karier</a></li>
-<li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Blog</a></li>
-</ul>
-</div>
-<div>
-<h3 class="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">Mahasiswa</h3>
-<ul class="space-y-4">
-<li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Cari Lowongan</a></li>
-<li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Panduan Magang</a></li>
-<li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Kalkulator Gaji</a></li>
-</ul>
-</div>
-<div>
-<h3 class="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">Kontak</h3>
-<ul class="space-y-4">
-<li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">hello@magangkareer.id</a></li>
-<li><span class="text-sm text-slate-500">Jakarta Selatan, Indonesia</span></li>
-</ul>
-</div>
-</div>
-<div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-50">
-<p class="text-xs text-slate-400">© 2024 MagangKareer. All rights reserved.</p>
-<div class="mt-4 md:mt-0 flex gap-6">
-<a class="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors" href="#">IG</a>
-<a class="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors" href="#">TW</a>
-<a class="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors" href="#">LI</a>
-</div>
-</div>
-</div>
-</footer>
 
-</body></html>
+<body class="bg-background-light font-sans text-text-main antialiased selection:bg-gray-200 selection:text-black">
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 h-[56px] bg-white/70 backdrop-blur-md transition-all duration-300 border-b border-black/5">
+        <div class="mx-auto flex h-full max-w-7xl items-center justify-between px-6 lg:px-8">
+            <div class="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
+                <span class="material-symbols-outlined text-xl text-slate-800">work_outline</span>
+                <span class="text-lg font-semibold tracking-tight text-slate-900">MagangKareer</span>
+            </div>
+            <div class="hidden items-center gap-8 md:flex">
+                <a class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+                    href="#tentang">Tentang</a>
+                <a class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+                    href="#lowongan">Lowongan</a>
+                <a class="text-sm font-medium text-slate-500 transition-colors hover:text-slate-900"
+                    href="#testimoni">Cerita</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a class="hidden text-sm font-medium text-slate-600 transition-colors hover:text-slate-900 sm:block"
+                    href="#">Masuk</a>
+                <a class="inline-flex h-8 items-center justify-center rounded-full border border-slate-200 bg-transparent px-5 text-sm font-medium text-slate-700 transition-all hover:border-slate-800 hover:text-slate-900"
+                    href="#">
+                    Daftar
+                </a>
+            </div>
+        </div>
+    </nav>
+    <section class="relative flex min-h-[85vh] flex-col items-center justify-center px-6 pt-32 pb-20 bg-tone-1-white">
+        <div class="mx-auto max-w-4xl text-center">
+            <p class="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Batch 12 Open</p>
+            <h1 class="mb-8 text-slate-900">
+                <span class="block text-3xl md:text-4xl font-medium tracking-tight text-slate-600 mb-2">Cara Paling
+                    Tepat</span>
+                <span class="block text-6xl md:text-7xl font-bold tracking-tight leading-[1.1]">
+                    Memulai Karier <span class="font-serif italic font-normal text-slate-800 ml-2">Profesional.</span>
+                </span>
+            </h1>
+            <p class="mx-auto mb-12 max-w-xl text-lg leading-relaxed text-slate-500 font-light">
+                Menghubungkan talenta muda dengan standar industri global. Akses program magang di BUMN dan perusahaan
+                teknologi tanpa bias.
+            </p>
+            <div class="flex flex-col items-center justify-center gap-5 sm:flex-row sm:gap-8">
+                <a class="group inline-flex h-12 items-center justify-center rounded-full bg-slate-900 px-8 text-[15px] font-medium text-white transition-all hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-200"
+                    href="#lowongan">
+                    Cari Magang
+                </a>
+                <a class="group inline-flex items-center gap-2 text-[15px] font-medium text-slate-600 transition-colors hover:text-slate-900"
+                    href="#learn-more">
+                    Pelajari Program
+                    <span
+                        class="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_right_alt</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="border-b border-slate-100 bg-tone-4-mist pt-12 pb-24">
+        <div class="mx-auto max-w-7xl px-6">
+            <p class="mb-10 text-center text-xs font-semibold uppercase tracking-widest text-slate-400">Dipercaya Oleh
+                Mitra Industri</p>
+            <div
+                class="flex flex-wrap justify-center items-center gap-10 md:gap-20 opacity-50 grayscale mix-blend-multiply transition-all duration-500 hover:grayscale-0 hover:opacity-100">
+                <div class="text-xl font-bold text-slate-600 tracking-tight">TELKOM</div>
+                <div class="text-xl font-bold text-slate-600 tracking-tight">GOTO</div>
+                <div class="text-xl font-bold text-slate-600 tracking-tight">PERTAMINA</div>
+                <div class="text-xl font-bold text-slate-600 tracking-tight">TRAVELOKA</div>
+                <div class="text-xl font-bold text-slate-600 tracking-tight">BRI</div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 bg-tone-2-warm" id="tentang">
+        <div class="mx-auto max-w-2xl px-6 text-center mb-24">
+            <h2 class="font-serif text-3xl md:text-4xl italic text-slate-800 mb-6 leading-tight">"Kami percaya setiap
+                langkah awal harus memiliki arah yang jelas."</h2>
+            <p class="text-lg leading-loose text-slate-500 font-light">
+                Dunia kerja seringkali membingungkan bagi pemula. MagangKareer hadir sebagai kurator peluang, memastikan
+                jembatan antara akademik dan profesional dibangun di atas transparansi dan kualitas.
+            </p>
+        </div>
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="grid gap-12 md:grid-cols-3">
+                <div class="group">
+                    <div
+                        class="mb-4 text-slate-900 font-semibold text-lg border-l-2 border-slate-200 pl-4 transition-colors group-hover:border-slate-900">
+                        Terkurasi Ketat
+                    </div>
+                    <p class="text-slate-500 leading-relaxed pl-4.5">
+                        Hanya menampilkan lowongan yang telah diverifikasi standar mentoring dan kejelasan job desc-nya.
+                    </p>
+                </div>
+                <div class="group">
+                    <div
+                        class="mb-4 text-slate-900 font-semibold text-lg border-l-2 border-slate-200 pl-4 transition-colors group-hover:border-slate-900">
+                        Ekosistem Kampus
+                    </div>
+                    <p class="text-slate-500 leading-relaxed pl-4.5">
+                        Terintegrasi dengan sistem akademik untuk konversi SKS dan jadwal yang menghormati waktu kuliah.
+                    </p>
+                </div>
+                <div class="group">
+                    <div
+                        class="mb-4 text-slate-900 font-semibold text-lg border-l-2 border-slate-200 pl-4 transition-colors group-hover:border-slate-900">
+                        Jalur Karier
+                    </div>
+                    <p class="text-slate-500 leading-relaxed pl-4.5">
+                        Bukan sekadar magang, melainkan pipeline talent untuk rekrutmen full-time pasca kelulusan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 bg-tone-1-white">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="relative grid gap-12 md:grid-cols-3 items-start">
+                <div class="relative flex flex-col items-center text-center group">
+                    <span
+                        class="text-6xl font-serif italic text-slate-100 mb-4 transition-colors group-hover:text-slate-200">01</span>
+                    <h3 class="mb-2 text-lg font-semibold text-slate-900">Eksplorasi</h3>
+                    <p class="text-sm text-slate-500 max-w-[240px] leading-relaxed">Temukan peran yang resonan dengan
+                        minat dan jurusan Anda.</p>
+                </div>
+                <div class="relative flex flex-col items-center text-center group">
+                    <span
+                        class="text-6xl font-serif italic text-slate-100 mb-4 transition-colors group-hover:text-slate-200">02</span>
+                    <h3 class="mb-2 text-lg font-semibold text-slate-900">Seleksi</h3>
+                    <p class="text-sm text-slate-500 max-w-[240px] leading-relaxed">Proses transparan untuk mencocokkan
+                        potensi dengan kebutuhan.</p>
+                </div>
+                <div class="relative flex flex-col items-center text-center group">
+                    <span
+                        class="text-6xl font-serif italic text-slate-100 mb-4 transition-colors group-hover:text-slate-200">03</span>
+                    <h3 class="mb-2 text-lg font-semibold text-slate-900">Acelerate</h3>
+                    <p class="text-sm text-slate-500 max-w-[240px] leading-relaxed">Mentorship nyata dan pengembangan
+                        skill profesional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 bg-tone-3-cool" id="lowongan">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="mb-16 flex items-end justify-between border-b border-slate-200 pb-6">
+                <h2 class="text-2xl font-semibold tracking-tight text-slate-900">Peluang Terkini</h2>
+                <a class="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors" href="#">Lihat
+                    Semua →</a>
+            </div>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div
+                    class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
+                    <div class="mb-6 flex items-start justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                UI/UX Designer</h3>
+                            <p class="text-sm text-slate-500 mt-1">GoTo Financial</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+                        <span class="text-xs font-medium text-slate-400">Jakarta • WFO</span>
+                        <a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                            href="#">Detail</a>
+                    </div>
+                </div>
+                <div
+                    class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
+                    <div class="mb-6 flex items-start justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                Data Analyst</h3>
+                            <p class="text-sm text-slate-500 mt-1">Telkom Indonesia</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+                        <span class="text-xs font-medium text-slate-400">Bandung • Hybrid</span>
+                        <a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                            href="#">Detail</a>
+                    </div>
+                </div>
+                <div
+                    class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
+                    <div class="mb-6 flex items-start justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                Software Engineer</h3>
+                            <p class="text-sm text-slate-500 mt-1">Bank Central Asia</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+                        <span class="text-xs font-medium text-slate-400">Tangerang • WFO</span>
+                        <a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                            href="#">Detail</a>
+                    </div>
+                </div>
+                <div
+                    class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
+                    <div class="mb-6 flex items-start justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                Product Manager</h3>
+                            <p class="text-sm text-slate-500 mt-1">Traveloka</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+                        <span class="text-xs font-medium text-slate-400">Jakarta • Remote</span>
+                        <a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                            href="#">Detail</a>
+                    </div>
+                </div>
+                <div
+                    class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
+                    <div class="mb-6 flex items-start justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                Marketing Intern</h3>
+                            <p class="text-sm text-slate-500 mt-1">Shopee</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+                        <span class="text-xs font-medium text-slate-400">Jakarta • Hybrid</span>
+                        <a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                            href="#">Detail</a>
+                    </div>
+                </div>
+                <div
+                    class="group flex flex-col rounded-xl bg-white p-8 shadow-sm transition-all hover:shadow-soft border border-transparent hover:border-slate-100">
+                    <div class="mb-6 flex items-start justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                Finance Intern</h3>
+                            <p class="text-sm text-slate-500 mt-1">Bank Mandiri</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-50">
+                        <span class="text-xs font-medium text-slate-400">Jakarta • WFO</span>
+                        <a class="text-xs font-semibold text-slate-900 opacity-0 transform translate-x-[-10px] transition-all group-hover:opacity-100 group-hover:translate-x-0"
+                            href="#">Detail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-32 bg-tone-5-depth" id="testimoni">
+        <div class="mx-auto max-w-4xl px-6 text-center">
+            <blockquote class="mb-12">
+                <span class="font-serif text-3xl md:text-5xl leading-tight text-slate-900 block mb-8">
+                    "MagangKareer membantu saya mendapatkan posisi di perusahaan impian. Prosesnya transparan dan
+                    mentornya sangat suportif."
+                </span>
+            </blockquote>
+            <div class="flex flex-col items-center justify-center gap-3">
+                <div class="h-12 w-12 overflow-hidden rounded-full grayscale opacity-80"
+                    data-alt="Portrait of a smiling student">
+                    <img alt="Sarah Amalia" class="h-full w-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-bHUAm6--kYU1lUTHqNQwJkeuugl64ev9gDlGCRoBAnkp7vZOBWS3_0CTMFji18IYiGiND4D3J7KAH5Jy8kk7oqQH2HwuvjrWQSZUo4Kv0ukKC3qQUkTOsxpFc0aF9ZYilx2Tdic2EoOmDeOQlPY2Zx5PfkN3IvDBg-ruic355uOoV4rYbgD_98aJb6EhJIUtThSVuowCnet42u2bOE2P58TgBRA5TEOLIxzdcPzYoXFqkmem1qV_0mB9_0UY-JMCmLZUdGYv7LI" />
+                </div>
+                <div class="text-center">
+                    <div class="text-sm font-semibold text-slate-900 uppercase tracking-widest">Sarah Amalia</div>
+                    <div class="text-xs text-slate-400 font-medium mt-1">Ex-Intern Telkom Indonesia</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-20 bg-tone-4-mist border-t border-slate-100">
+        <div class="mx-auto max-w-3xl px-6 text-center">
+            <p class="text-xl md:text-2xl font-medium text-slate-700 leading-normal">
+                MagangKareer dirancang untuk membuat langkah awal karier lebih jelas dan bertanggung jawab.
+            </p>
+        </div>
+    </section>
+    <footer class="bg-white pb-12 pt-16 border-t border-slate-100">
+        <div class="mx-auto max-w-7xl px-6">
+            <div class="grid gap-12 sm:grid-cols-2 md:grid-cols-4 lg:gap-8 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="text-lg font-bold text-slate-900">MagangKareer</span>
+                    </div>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Platform magang profesional #1 di Indonesia untuk mahasiswa dan fresh graduates.
+                    </p>
+                </div>
+                <div>
+                    <h3 class="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">Perusahaan</h3>
+                    <ul class="space-y-4">
+                        <li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Tentang
+                                Kami</a></li>
+                        <li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Karier</a>
+                        </li>
+                        <li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Blog</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">Mahasiswa</h3>
+                    <ul class="space-y-4">
+                        <li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Cari
+                                Lowongan</a></li>
+                        <li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Panduan
+                                Magang</a></li>
+                        <li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors" href="#">Kalkulator
+                                Gaji</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-900">Kontak</h3>
+                    <ul class="space-y-4">
+                        <li><a class="text-sm text-slate-500 hover:text-slate-900 transition-colors"
+                                href="#">hello@magangkareer.id</a></li>
+                        <li><span class="text-sm text-slate-500">Jakarta Selatan, Indonesia</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-50">
+                <p class="text-xs text-slate-400">© 2024 MagangKareer. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 flex gap-6">
+                    <a class="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors" href="#">IG</a>
+                    <a class="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors" href="#">TW</a>
+                    <a class="text-xs font-medium text-slate-400 hover:text-slate-900 transition-colors" href="#">LI</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
