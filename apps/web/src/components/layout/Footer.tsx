@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Instagram, Twitter, Linkedin } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
     perusahaan: [
@@ -25,10 +26,15 @@ export function Footer() {
                 <div className="grid gap-12 sm:grid-cols-2 md:grid-cols-4 lg:gap-8 mb-16">
                     {/* Brand */}
                     <div className="col-span-1 md:col-span-1">
-                        <div className="flex items-center gap-2 mb-6">
-                            <span className="text-lg font-bold text-slate-900">
-                                MagangKareer
-                            </span>
+                        <div className="mb-6">
+                            <Image
+                                src="/logo.png?v=3"
+                                alt="MagangKareer"
+                                width={180}
+                                height={36}
+                                className="h-8 w-auto object-contain"
+                                unoptimized
+                            />
                         </div>
                         <p className="text-sm text-slate-500 leading-relaxed">
                             Platform magang profesional #1 di Indonesia untuk mahasiswa dan

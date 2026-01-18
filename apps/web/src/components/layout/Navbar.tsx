@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
+import Image from "next/image";
 
 export function Navbar() {
     return (
@@ -18,10 +18,15 @@ export function Navbar() {
                     href="/"
                     className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity"
                 >
-                    <Briefcase className="w-5 h-5 text-slate-800" strokeWidth={2.5} />
-                    <span className="text-lg font-semibold tracking-tight text-slate-900">
-                        MagangKareer
-                    </span>
+                    <Image
+                        src="/logo.png?v=3"
+                        alt="MagangKareer"
+                        width={140}
+                        height={28}
+                        className="h-6 w-auto object-contain"
+                        priority
+                        unoptimized
+                    />
                 </Link>
 
                 {/* Navigation Links */}

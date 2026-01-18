@@ -1,24 +1,67 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #0f172a;
+  --color-primary-soft: #334155;
+  --color-accent: #3b82f6;
+
+  /* 5 Neutral Tones System (PromptGuide §3.1) */
+  --color-tone-1-white: #ffffff;
+  --color-tone-2-warm: #faf9f7;
+  --color-tone-3-cool: #f8fafc;
+  --color-tone-4-mist: #f1f5f9;
+  --color-tone-5-depth: #fafaf9;
+
+  --color-text-main: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border-light: #e2e8f0;
+
+  --font-sans: var(--font-inter), Inter, sans-serif;
+  --font-serif: var(--font-playfair), Playfair Display, serif;
+
+  --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+
+  --animate-slide-up: slide-up 0.6s ease-out;
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
 /* Section Transition Gradients (PromptGuide §7) */
 .transition-white-to-mist {
   background: linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%);
 }
+
 .transition-mist-to-warm {
   background: linear-gradient(to bottom, #f1f5f9 0%, #faf9f7 100%);
 }
+
 .transition-warm-to-white {
   background: linear-gradient(to bottom, #faf9f7 0%, #faf9f7 40%, #ffffff 100%);
 }
+
 .transition-white-to-cool {
   background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
 }
+
 .transition-cool-to-depth {
   background: linear-gradient(to bottom, #f8fafc 0%, #fafaf9 100%);
 }
+
 .transition-depth-to-mist {
   background: linear-gradient(to bottom, #fafaf9 0%, #f1f5f9 100%);
 }
+
 .transition-mist-to-white {
   background: linear-gradient(to bottom, #f1f5f9 0%, #ffffff 100%);
 }
@@ -32,4 +75,3 @@
 body {
   @apply bg-white font-sans text-text-main antialiased selection:bg-gray-200 selection:text-black;
 }
-
