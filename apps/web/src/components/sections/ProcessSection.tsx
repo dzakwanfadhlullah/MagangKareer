@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Compass, MagnifyingGlass, RocketLaunch, IconProps, CaretDown } from "@phosphor-icons/react";
 import { ComponentType, useState } from "react";
+import { JourneyIndicator } from "../ui/JourneyIndicator";
 
 interface Step {
     number: string;
@@ -93,6 +94,7 @@ export function ProcessSection() {
                             )}
 
                             <motion.div
+                                id={`step-${step.number}`}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: index * 0.15 }}
@@ -165,6 +167,7 @@ export function ProcessSection() {
                     ))}
                 </div>
             </div>
+            <JourneyIndicator />
         </section>
     );
 }
