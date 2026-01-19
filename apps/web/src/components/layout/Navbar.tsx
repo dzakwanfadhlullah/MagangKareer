@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Menu, UserPlus } from "lucide-react";
 import { MobileMenu } from "./MobileMenu";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { AuthModal } from "../modals/AuthModal";
 
 const navLinks = [
     { label: "Tentang", href: "#tentang", sectionId: "tentang" },
@@ -17,6 +18,10 @@ const navLinks = [
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    const [authModal, setAuthModal] = useState<{ isOpen: boolean; mode: "login" | "signup" }>({
+        isOpen: false,
+        mode: "login"
+    });
 
     const { scrollY } = useScroll();
     const activeSection = useActiveSection({
@@ -88,14 +93,14 @@ export function Navbar() {
                     <div className="flex items-center gap-4">
                         {/* Desktop Auth */}
                         <div className="hidden items-center gap-6 md:flex">
-                            <Link
-                                href="#"
+                            <button
+                                onClick={() => setAuthModal({ isOpen: true, mode: "login" })}
                                 className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
                             >
                                 Masuk
-                            </Link>
-                            <Link
-                                href="#"
+                            </button>
+                            <button
+                                onClick={() => setAuthModal({ isOpen: true, mode: "signup" })}
                                 className="group relative inline-flex h-9 items-center justify-center gap-2 overflow-hidden rounded-full bg-slate-900 px-5 text-sm font-medium text-white transition-all duration-300 hover:bg-gradient-to-r hover:from-slate-800 hover:to-slate-700 hover:shadow-lg hover:shadow-slate-300/30 hover:scale-105 active:scale-95"
                             >
                                 <UserPlus
@@ -105,7 +110,7 @@ export function Navbar() {
                                 <span>Daftar</span>
                                 {/* Pulse ring animation */}
                                 <span className="absolute inset-0 rounded-full animate-ping bg-slate-400/20 group-hover:animate-none" />
-                            </Link>
+                            </button>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -120,10 +125,19 @@ export function Navbar() {
                 </div>
             </motion.nav>
 
+            {/* Auth Modal Overlay */}
+            <AuthModal
+                isOpen={authModal.isOpen}
+                onClose={() => setAuthModal({ ...authModal, isOpen: false })}
+                initialMode={authModal.mode}
+            />
+
             {/* Mobile Menu Drawer */}
             <MobileMenu
                 isOpen={isMobileMenuOpen}
                 onClose={() => setIsMobileMenuOpen(false)}
+                onLogin={() => setAuthModal({ isOpen: true, mode: "login" })}
+                onSignup={() => setAuthModal({ isOpen: true, mode: "signup" })}
             />
         </>
     );

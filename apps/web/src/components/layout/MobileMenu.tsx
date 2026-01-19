@@ -7,6 +7,8 @@ import { X } from "lucide-react";
 interface MobileMenuProps {
     isOpen: boolean;
     onClose: () => void;
+    onLogin: () => void;
+    onSignup: () => void;
 }
 
 const menuItems = [
@@ -15,7 +17,7 @@ const menuItems = [
     { label: "Cerita", href: "#testimoni" },
 ];
 
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, onLogin, onSignup }: MobileMenuProps) {
     return (
         <AnimatePresence>
             {isOpen && (
@@ -80,20 +82,24 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
                                 transition={{ delay: 0.25 }}
                                 className="space-y-3"
                             >
-                                <Link
-                                    href="#"
-                                    onClick={onClose}
+                                <button
+                                    onClick={() => {
+                                        onLogin();
+                                        onClose();
+                                    }}
                                     className="block w-full py-3 text-center text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
                                 >
                                     Masuk
-                                </Link>
-                                <Link
-                                    href="#"
-                                    onClick={onClose}
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        onSignup();
+                                        onClose();
+                                    }}
                                     className="block w-full py-3 text-center text-sm font-medium text-white bg-slate-900 rounded-full hover:bg-slate-800 transition-colors"
                                 >
                                     Daftar Sekarang
-                                </Link>
+                                </button>
                             </motion.div>
                         </div>
                     </motion.div>
