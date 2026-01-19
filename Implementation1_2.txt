@@ -147,11 +147,12 @@
 -Organic feel: Wavy SVG connectors & dashed strokes
 -Typo 'Acelerate' diperbaiki menjadi 'Accelerate'
 
-### ⏸️ 5.3 Interactive Step Cards dengan Hover State
-**Status:** PENDING
--Card elevation on hover dengan shadow
--Expand deskripsi dengan detail tambahan
--Cursor pointer untuk indicate interactivity
+### ✅ 5.3 Interactive Step Cards dengan Hover State
+**Status:** COMPLETED
+-Card elevation on hover dengan shadow halus
+-Expandable details: Klik untuk melihat info mendalam per step
+-AnimatePresence untuk transisi konten yang smooth
+-Interactivity cues: Cursor pointer & "Tap for details" indicator
 
 ### ⏸️ 5.4 Progress Indicator untuk User Journey
 **Status:** PENDING
@@ -220,7 +221,7 @@
 | 2 | Hero | ✅ COMPLETE | Animasi, video background |
 | 3 | Trust Logos | ✅ COMPLETE | Real logos, modal 25+ partner |
 | 4 | Philosophy | ✅ COMPLETE | Icons, Expandable, Counters |
-| 5 | Process | 🔄 PARTIAL | 5.1 complete (connectors) |
+| 5 | Process | 🔄 NEARLY COMPLETE | Interactivity & natural connectors done |
 | 6 | Jobs | ⏸️ PENDING | - |
 | 7 | Testimonials | ⏸️ PENDING | - |
 | 8 | CTA/Closing | ⏸️ PENDING | - |
@@ -296,5 +297,5 @@ public/
 ---
 
 **Dokumen ini dibuat untuk panduan pengembangan MagangKareer Landing Page.**
-**Progress: ~42% complete (17/40 items)**
-**Estimasi waktu tersisa: 21-31 jam development.**
+**Progress: ~45% complete (18/40 items)**
+**Estimasi waktu tersisa: 20-30 jam development.**
