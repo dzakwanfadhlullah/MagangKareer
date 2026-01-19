@@ -1,574 +1,279 @@
-# MagangKareer Landing Page - Implementation Guide v1.2
+# MagangKareer Landing Page - Implementation Guide v1.3 (UPDATED)
 ## Panduan Lengkap Improvement UI/UX, Komponen, dan Fitur
 
 > **Dokumen ini berisi 10 Phase dengan total 40 Improvement mendetail.**
 > Setiap phase memiliki 4 improvement yang spesifik dan actionable.
+> 
+> **LAST UPDATED:** 2026-01-19
+> **STATUS:** Phase 1-3 COMPLETE, Phase 4.1 COMPLETE
 
 ---
 
-## PHASE 1: NAVBAR ENHANCEMENT
+## ✅ PHASE 1: NAVBAR ENHANCEMENT [COMPLETED]
 **Fokus:** Interaksi, Responsif Mobile, dan Polish Visual
+**Status:** ✅ SELESAI
 
-### 1.1 Mobile Hamburger Menu dengan Animasi Slide
-**Masalah:** Navbar saat ini menyembunyikan navigasi di mobile (`hidden md:flex`), tidak ada menu hamburger.
+### ✅ 1.1 Mobile Hamburger Menu dengan Animasi Slide
+**Status:** IMPLEMENTED
+- File: `components/layout/MobileMenu.tsx` ✅
+- File: `components/layout/Navbar.tsx` (updated) ✅
+- Hamburger icon dengan toggle Menu/X
+- Slide-in drawer dengan Framer Motion
+- Backdrop blur dan close-on-click-outside
 
-**Solusi:**
-- Tambahkan komponen `MobileMenu` dengan hamburger icon (Menu/X toggle)
-- Implementasi slide-in drawer dari kanan menggunakan Framer Motion
-- Menu overlay dengan backdrop blur dan close-on-click-outside
-- Animasi stagger untuk setiap menu item
+### ✅ 1.2 Scroll-Aware Navbar dengan Shadow Dinamis
+**Status:** IMPLEMENTED
+- Navbar bereaksi terhadap scroll
+- Shadow dinamis bertambah saat scroll > 50px
+- Transisi smooth
 
-**File yang dimodifikasi:**
-- `Navbar.tsx` - Tambah hamburger button dan mobile menu state
-- `MobileMenu.tsx` [NEW] - Komponen drawer terpisah
+### ✅ 1.3 Active Link Indicator
+**Status:** IMPLEMENTED
+- Highlight link aktif saat scrolling
 
----
-
-### 1.2 Scroll-Aware Navbar dengan Shadow Dinamis
-**Masalah:** Navbar tidak bereaksi terhadap scroll, shadow/blur tetap sama.
-
-**Solusi:**
-- Gunakan `useScroll` dan `useMotionValueEvent` dari Framer Motion
-- Saat scroll > 50px: tambah shadow-md, tingkatkan opacity background ke 90%
-- Saat scroll = 0: kembali ke state transparan dengan blur ringan
-- Transisi smooth 200ms untuk semua perubahan
-
-**Kode contoh:**
-```tsx
-const { scrollY } = useScroll();
-const [scrolled, setScrolled] = useState(false);
-
-useMotionValueEvent(scrollY, "change", (latest) => {
-  setScrolled(latest > 50);
-});
-```
+### ✅ 1.4 Tombol CTA "Daftar" dengan Micro-interaction
+**Status:** IMPLEMENTED
+- Hover effects pada CTA button
 
 ---
 
-### 1.3 Active Link Indicator dengan Intersection Observer
-**Masalah:** User tidak tahu section mana yang sedang aktif saat scrolling.
-
-**Solusi:**
-- Implementasi custom hook `useActiveSection` menggunakan Intersection Observer
-- Highlight link aktif dengan underline animasi atau dot indicator
-- Smooth transition antar state aktif
-
-**File baru:**
-- `hooks/useActiveSection.ts` [NEW]
-
----
-
-### 1.4 Tombol CTA "Daftar" dengan Micro-interaction
-**Masalah:** Tombol "Daftar" terlihat flat dan kurang menarik perhatian.
-
-**Solusi:**
-- Tambah subtle gradient pada hover
-- Implementasi ripple effect saat click
-- Tambah icon kecil (UserPlus) yang muncul saat hover
-- Pulse animation ringan untuk menarik perhatian pertama kali
-
----
-
-## PHASE 2: HERO SECTION UPGRADE
+## ✅ PHASE 2: HERO SECTION UPGRADE [COMPLETED]
 **Fokus:** Visual Impact, Animasi, dan Konversi
+**Status:** ✅ SELESAI
 
-### 2.1 Animated Text dengan Split Character Animation
-**Masalah:** Headline muncul dengan animasi sederhana (fade + slide), kurang memorable.
+### ✅ 2.1 Animated Text dengan Split Character Animation
+**Status:** IMPLEMENTED
+- File: `components/sections/HeroSection.tsx` ✅
+- Animasi karakter stagger
+- Kata highlight dengan efek berbeda
 
-**Solusi:**
-- Split headline menjadi per-karakter untuk animasi stagger
-- Kata "Profesional" dianimasikan dengan reveal dari bawah per huruf
-- Delay berbeda untuk setiap baris teks
-- Gunakan `motion.span` untuk setiap karakter
+### ✅ 2.2 ~~Floating Elements / Subtle Pattern Background~~ → VIDEO BACKGROUND
+**Status:** IMPLEMENTED (MODIFIED)
+- **ACTUAL:** Full-page 3D video background (`wmremove-transformed.mp4`)
+- File: `components/layout/VideoBackground.tsx` ✅
+- Video loop muted dengan overlay gradient
+- **CATATAN:** Background pattern/floating elements TIDAK diperlukan karena sudah ada video background
 
----
+### ✅ 2.3 Stats Counter di Bawah CTA
+**Status:** IMPLEMENTED
+- Social proof stats di Hero section
 
-### 2.2 Floating Elements / Subtle Pattern Background
-**Masalah:** Background terlalu polos, kurang depth visual.
-
-**Solusi:**
-- Tambahkan subtle dot grid pattern atau geometric shapes
-- Floating elements dengan parallax effect ringan (bergerak saat mouse move)
-- Opacity sangat rendah (5-10%) agar tidak mengganggu konten
-- Gunakan CSS pseudo-elements atau SVG pattern
-
----
-
-### 2.3 Stats Counter di Bawah CTA
-**Masalah:** Hero section tidak menampilkan social proof angka.
-
-**Solusi:**
-- Tambah row stats: "500+ Magang Tersalurkan | 50+ Perusahaan Partner | 98% Puas"
-- Animasi count-up saat masuk viewport menggunakan library seperti `react-countup`
-- Style minimalis dengan separator dot atau pipe
+### ✅ 2.4 Video Background
+**Status:** IMPLEMENTED
+- Full-page video background dengan overlay gradient
+- Lazy loading untuk performa
 
 ---
 
-### 2.4 Video Background atau Illustration Option
-**Masalah:** Hero section kurang visual interest untuk first impression.
-
-**Solusi:**
-- Opsi 1: Tambah ilustrasi SVG custom di samping atau belakang teks
-- Opsi 2: Background video loop muted dengan overlay gradient
-- Implementasi dengan lazy loading untuk performa
-- Fallback ke static image untuk koneksi lambat
-
----
-
-## PHASE 3: TRUST LOGOS SECTION POLISH
+## ✅ PHASE 3: TRUST LOGOS SECTION POLISH [COMPLETED]
 **Fokus:** Autentikitas dan Interaktivitas
+**Status:** ✅ SELESAI
 
-### 3.1 Logo Asli Perusahaan dengan Lazy Loading
-**Masalah:** Saat ini hanya menampilkan teks nama perusahaan, kurang profesional.
+### ✅ 3.1 Logo Asli Perusahaan dengan Lazy Loading
+**Status:** IMPLEMENTED
+- File: `components/sections/TrustLogosSection.tsx` ✅
+- Logo images di `/public/logos/` (Telkom, GoTo, Pertamina, Traveloka, BRI)
+- Next.js Image dengan lazy loading
+- Grayscale filter dengan hover ke colored
 
-**Solusi:**
-- Ganti teks dengan actual logo images (SVG preferred)
-- Simpan di `/public/logos/` dengan format: telkom.svg, goto.svg, dst
-- Implementasi lazy loading dengan Next.js Image
-- Maintain grayscale filter dengan hover ke colored
+### ⏭️ 3.2 Infinite Scroll Marquee Animation [SKIPPED]
+**Status:** SKIPPED (by user request)
+- **ALASAN:** User memilih tampilan statis daripada marquee animasi
+- Logo ditampilkan dalam flex row statis
 
----
+### ⏭️ 3.3 Tooltip dengan Info Perusahaan [SKIPPED - MOVED TO MODAL]
+**Status:** SKIPPED (by user request)
+- **ALASAN:** Tooltip di logo utama dihilangkan
+- **ALTERNATIF:** Tooltip/description tersedia di dalam modal (Phase 3.4)
 
-### 3.2 Infinite Scroll Marquee Animation
-**Masalah:** Logo statis, kurang dinamis untuk social proof section.
-
-**Solusi:**
-- Implementasi CSS-only atau Framer Motion marquee
-- Dua baris logo bergerak berlawanan arah (optional)
-- Pause on hover untuk accessibility
-- Smooth infinite loop tanpa jump
-
-**CSS contoh:**
-```css
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-```
-
----
-
-### 3.3 Tooltip dengan Info Perusahaan
-**Masalah:** Logo tidak memberikan konteks tambahan.
-
-**Solusi:**
-- Tambah tooltip saat hover menampilkan: nama perusahaan + jumlah posisi tersedia
-- Gunakan Radix UI Tooltip atau implementasi custom
-- Animasi fade-in smooth
-- Position: bottom-center dengan arrow
+### ✅ 3.4 "Lihat Semua Partner" Link dengan Modal Gallery
+**Status:** IMPLEMENTED (ENHANCED)
+- File: `components/sections/TrustLogosSection.tsx` ✅
+- Link "Lihat 25+ Partner Lainnya" di bawah logo row
+- Modal dengan grid semua partner (25 perusahaan)
+- Search & filter by category (Teknologi, BUMN, Startup, E-commerce, Travel)
+- **ENHANCED FEATURES:**
+  - Badge sistem (Sering Magang, Partner Kampus, Ramah Mahasiswa, Pernah Rekrut Ex-Intern)
+  - Special filters (Paling ramah magang, Banyak role non-tech, Cocok untuk fresh graduate)
+  - Tooltip deskripsi per partner (di dalam modal)
+  - Educational empty state
 
 ---
 
-### 3.4 "Lihat Semua Partner" Link dengan Modal Gallery
-**Masalah:** Hanya menampilkan 5 logo, user tidak tahu ada lebih banyak.
-
-**Solusi:**
-- Tambah link "Lihat 50+ Partner Lainnya" di bawah logo row
-- Click membuka modal dengan grid semua partner logos
-- Search/filter functionality dalam modal
-- Grouped by industry (Teknologi, BUMN, Startup, dll)
-
----
-
-## PHASE 4: PHILOSOPHY SECTION ELEVATION
+## 🔄 PHASE 4: PHILOSOPHY SECTION ELEVATION [IN PROGRESS]
 **Fokus:** Visual Hierarchy dan Engagement
+**Status:** 🔄 SEBAGIAN SELESAI
 
-### 4.1 Icon Visual untuk Setiap Feature
-**Masalah:** Feature cards hanya menggunakan border-left sebagai visual cue.
-
-**Solusi:**
-- Tambah icon dari Lucide untuk setiap feature:
-  - Terkurasi Ketat: Shield/CheckCircle
-  - Ekosistem Kampus: GraduationCap
-  - Jalur Karier: TrendingUp
+### ✅ 4.1 Icon Visual untuk Setiap Feature
+**Status:** IMPLEMENTED
+- File: `components/sections/PhilosophySection.tsx` ✅
+- **Library:** `@phosphor-icons/react` (lebih natural dari Lucide)
+- Icons dengan variant **duotone** untuk tampilan premium:
+  - Terkurasi Ketat: `ShieldCheck` (emerald)
+  - Ekosistem Kampus: `Student` (blue)
+  - Jalur Karier: `ChartLineUp` (purple)
 - Icon dengan background circle subtle
 - Color accent pada hover
 
----
+### ⚠️ 4.2 Background Pattern atau Gradient Mesh
+**Status:** NEEDS REVIEW
+- **PERHATIAN:** Sudah ada video background global
+- **REKOMENDASI:** SKIP atau gunakan sangat subtle (5% opacity max)
+- **RISIKO:** Bisa konflik dengan video background existing
 
-### 4.2 Background Pattern atau Gradient Mesh
-**Masalah:** Section ini penting tapi visualnya flat.
+### ⏸️ 4.3 Expand/Collapse Detail Content
+**Status:** PENDING
+- Accordion behavior untuk detail feature
 
-**Solusi:**
-- Tambah gradient mesh background (seperti vercel.com)
-- Atau gunakan organic blob shapes dengan blur
-- Opacity rendah 10-15%
-- Animate movement subtle dengan CSS
-
----
-
-### 4.3 Expand/Collapse Detail Content
-**Masalah:** Deskripsi feature terlalu pendek, user mungkin ingin tahu lebih.
-
-**Solusi:**
-- Tambah "Pelajari Lebih Lanjut" link per feature card
-- Click expand menampilkan paragraf tambahan dengan animasi height
-- Atau redirect ke page detail terpisah
-- Accordion behavior: close other saat expand satu
+### ⏸️ 4.4 Number Counter untuk Credibility
+**Status:** PENDING
+- Metrics row dengan animated count-up
 
 ---
 
-### 4.4 Number Counter untuk Credibility
-**Masalah:** Section tidak memiliki data kuantitatif pendukung.
-
-**Solusi:**
-- Tambah metrics row: "150+ Lowongan Terkurasi | 30 Kampus Partner | 4.9/5 Rating"
-- Posisi: di bawah quote atau di atas feature cards
-- Style: subtle, font-weight medium, spacing lebar
-- Animated count-up on viewport enter
-
----
-
-## PHASE 5: PROCESS SECTION TRANSFORMATION
+## ⏸️ PHASE 5: PROCESS SECTION TRANSFORMATION [PENDING]
 **Fokus:** Visual Flow dan Interaktivitas
 
-### 5.1 Timeline/Connector Visual antar Steps
-**Masalah:** 3 steps terlihat independen, tidak menunjukkan flow/progression.
-
-**Solusi:**
-- Tambah connecting line (dashed atau solid) antar steps
-- Progressively animate line saat scroll
-- Dot indicators pada setiap step yang fill saat active
-- Responsive: horizontal di desktop, vertical di mobile
+### ⏸️ 5.1 Timeline/Connector Visual antar Steps
+### ⏸️ 5.2 Ilustrasi/Icon untuk Setiap Step
+### ⏸️ 5.3 Interactive Step Cards dengan Hover State
+### ⏸️ 5.4 Progress Indicator untuk User Journey
 
 ---
 
-### 5.2 Ilustrasi/Icon untuk Setiap Step
-**Masalah:** Hanya angka serial, kurang visual interest.
-
-**Solusi:**
-- Tambah icon atau mini-illustration per step:
-  - 01 Eksplorasi: Search/Compass icon
-  - 02 Seleksi: Filter/CheckSquare icon
-  - 03 Accelerate: Rocket/Zap icon
-- Background circle dengan branded color
-- Animate icon on hover (scale/rotate subtle)
-
----
-
-### 5.3 Interactive Step Cards dengan Hover State
-**Masalah:** Steps tidak interaktif, terasa seperti static content.
-
-**Solusi:**
-- Card elevation on hover dengan shadow
-- Expand deskripsi dengan detail tambahan
-- Cursor pointer untuk indicate interactivity
-- Optional: link ke page detail proses
-
----
-
-### 5.4 Progress Indicator untuk User Journey
-**Masalah:** User tidak tahu posisi mereka dalam journey flow.
-
-**Solusi:**
-- Sticky mini-indicator di sidebar atau bottom
-- Menunjukkan: "Anda di tahap Eksplorasi"
-- Update berdasarkan user state (if authenticated)
-- Skip to step functionality
-
----
-
-## PHASE 6: JOBS SECTION ENHANCEMENT
+## ⏸️ PHASE 6: JOBS SECTION ENHANCEMENT [PENDING]
 **Fokus:** Fungsionalitas, Filter, dan UX
 
-### 6.1 Filter & Sort Functionality
-**Masalah:** 6 job cards ditampilkan tanpa opsi filter atau sort.
-
-**Solusi:**
-- Tambah filter bar: Work Mode (WFO/Hybrid/Remote), Location, Industry
-- Sort by: Terbaru, Populer, Gaji (jika ada)
-- Pill/chip style filters dengan clear all option
-- Show count: "Menampilkan 6 dari 150 lowongan"
+### ⏸️ 6.1 Filter & Sort Functionality
+### ⏸️ 6.2 Enhanced Job Card dengan Lebih Banyak Info
+### ⏸️ 6.3 Quick Apply Modal atau Preview Drawer
+### ⏸️ 6.4 Pagination atau Infinite Scroll
 
 ---
 
-### 6.2 Enhanced Job Card dengan Lebih Banyak Info
-**Masalah:** Job card hanya menampilkan title, company, location, dan work mode.
-
-**Solusi:**
-- Tambah: logo perusahaan (mini), salary range (jika tersedia), deadline
-- Tags untuk skills required (React, Python, etc)
-- "Baru" badge untuk listing < 3 hari
-- Bookmark/save functionality
-
----
-
-### 6.3 Quick Apply Modal atau Preview Drawer
-**Masalah:** "Detail" link mengarah ke "#", tidak ada aksi nyata.
-
-**Solusi:**
-- Click "Detail" membuka side drawer dengan full job description
-- Include: requirements, responsibilities, benefits, company info
-- "Apply Now" CTA dalam drawer
-- Share job functionality
-
----
-
-### 6.4 Pagination atau Infinite Scroll
-**Masalah:** Hanya 6 jobs ditampilkan, tidak scalable.
-
-**Solusi:**
-- Opsi 1: Load More button dengan pagination
-- Opsi 2: Infinite scroll dengan skeleton loading
-- Show total count dan current page
-- Maintain scroll position saat kembali
-
----
-
-## PHASE 7: TESTIMONIAL SECTION UPGRADE
+## ⏸️ PHASE 7: TESTIMONIAL SECTION UPGRADE [PENDING]
 **Fokus:** Social Proof dan Variasi
 
-### 7.1 Multiple Testimonials dengan Carousel/Slider
-**Masalah:** Hanya 1 testimonial ditampilkan, kurang variasi social proof.
-
-**Solusi:**
-- Carousel dengan 5-7 testimonials berbeda
-- Auto-rotate setiap 5 detik dengan pause on hover
-- Dot indicators atau arrow navigation
-- Swipe support untuk mobile
+### ⏸️ 7.1 Multiple Testimonials dengan Carousel/Slider
+### ⏸️ 7.2 Video Testimonial Option
+### ⏸️ 7.3 Company Logo + Role Badge
+### ⏸️ 7.4 Rating/Stars Display
 
 ---
 
-### 7.2 Video Testimonial Option
-**Masalah:** Hanya text testimonial, kurang personal touch.
-
-**Solusi:**
-- Tambah 1-2 video testimonial terintegrasi
-- Thumbnail dengan play button overlay
-- Modal video player saat click
-- Fallback ke text jika video tidak load
-
----
-
-### 7.3 Company Logo + Role Badge
-**Masalah:** Testimonial tidak menunjukkan kredibilitas role.
-
-**Solusi:**
-- Tambah company logo mini di samping nama
-- Badge showing role: "Software Engineer Intern"
-- LinkedIn profile link (optional)
-- Verified badge indicator
-
----
-
-### 7.4 Rating/Stars Display
-**Masalah:** Tidak ada quantifiable satisfaction metric.
-
-**Solusi:**
-- Tambah star rating (5/5) di atas atau bawah quote
-- Atau NPS-style: "9/10 akan merekomendasikan"
-- Aggregate rating: "4.9 dari 200+ alumni"
-- Style minimalis, tidak overwhelming
-
----
-
-## PHASE 8: CLOSING & CTA SECTION REVAMP
+## ⏸️ PHASE 8: CLOSING & CTA SECTION REVAMP [PENDING]
 **Fokus:** Konversi dan Impact
 
-### 8.1 Strong CTA dengan Visual Emphasis
-**Masalah:** Closing section terlalu subtle, hanya text statement.
-
-**Solusi:**
-- Tambah prominent CTA button: "Mulai Sekarang - Gratis"
-- Secondary CTA: "Lihat Demo" atau "Jadwalkan Konsultasi"
-- Gradient atau solid background untuk section
-- Increase visual hierarchy
+### ⏸️ 8.1 Strong CTA dengan Visual Emphasis
+### ⏸️ 8.2 Email Newsletter Signup Form
+### ⏸️ 8.3 Trust Badges Row
+### ⏸️ 8.4 FAQ Accordion Section
 
 ---
 
-### 8.2 Email Newsletter Signup Form
-**Masalah:** Tidak ada capture mechanism untuk non-ready users.
-
-**Solusi:**
-- Inline email signup: "Dapatkan lowongan terbaru di inbox Anda"
-- Simple form: email input + button
-- Success state dengan confirmation message
-- Privacy policy link inline
-
----
-
-### 8.3 Trust Badges Row
-**Masalah:** Closing section tidak reinforcing trust.
-
-**Solusi:**
-- Tambah badges: "SSL Secured", "Data Terenkripsi", "1000+ Users"
-- Partner certification logos jika ada
-- "Featured in" media logos
-- Compact row format
-
----
-
-### 8.4 FAQ Accordion Section
-**Masalah:** Potential questions tidak dijawab sebelum Footer.
-
-**Solusi:**
-- 5-6 FAQ items dengan accordion
-- Questions: "Apakah gratis?", "Bagaimana proses seleksi?", etc
-- Schema markup untuk SEO
-- "Pertanyaan lain?" link ke contact form
-
----
-
-## PHASE 9: FOOTER OPTIMIZATION
+## ⏸️ PHASE 9: FOOTER OPTIMIZATION [PENDING]
 **Fokus:** Navigasi, SEO, dan Completeness
 
-### 9.1 Expanded Footer Navigation
-**Masalah:** Footer links masih placeholder, belum lengkap.
-
-**Solusi:**
-- Kolom tambahan: Bantuan (FAQ, Kontak, Feedback)
-- Legal section: Privacy Policy, Terms of Service, Cookie Policy
-- Semua link menuju page yang real (bukan #)
-- Sitemap-style organization
+### ⏸️ 9.1 Expanded Footer Navigation
+### ⏸️ 9.2 App Download Badges
+### ⏸️ 9.3 Language/Region Selector
+### ⏸️ 9.4 Back to Top Button
 
 ---
 
-### 9.2 App Download Badges
-**Masalah:** Jika ada mobile app, tidak ditampilkan.
-
-**Solusi:**
-- Google Play Store badge
-- Apple App Store badge
-- QR code untuk quick download
-- "Segera Hadir" state jika belum ready
-
----
-
-### 9.3 Language/Region Selector
-**Masalah:** Tidak ada opsi bahasa atau region.
-
-**Solusi:**
-- Dropdown selector: Indonesia / English
-- Auto-detect based on browser
-- Save preference ke localStorage
-- i18n ready infrastructure
-
----
-
-### 9.4 Back to Top Button
-**Masalah:** Long page tanpa quick navigation ke atas.
-
-**Solusi:**
-- Floating button yang muncul setelah scroll 500px
-- Smooth scroll to top on click
-- Icon: ChevronUp dengan circle background
-- Subtle entrance/exit animation
-
----
-
-## PHASE 10: GLOBAL IMPROVEMENTS
+## ⏸️ PHASE 10: GLOBAL IMPROVEMENTS [PENDING]
 **Fokus:** Performance, Accessibility, dan Polish
 
-### 10.1 Loading States & Skeleton Screens
-**Masalah:** Tidak ada feedback visual saat loading.
-
-**Solusi:**
-- Skeleton loaders untuk Job Cards, Testimonials
-- Suspense boundaries untuk code splitting
-- Progress indicator untuk form submissions
-- Optimistic UI updates
+### ⏸️ 10.1 Loading States & Skeleton Screens
+### ⏸️ 10.2 Accessibility (a11y) Audit & Fixes
+### ⏸️ 10.3 Performance Optimization
+### ⏸️ 10.4 Dark Mode Support
 
 ---
 
-### 10.2 Accessibility (a11y) Audit & Fixes
-**Masalah:** Belum optimal untuk screen readers dan keyboard navigation.
+## RINGKASAN IMPLEMENTASI (UPDATED)
 
-**Solusi:**
-- Proper heading hierarchy (h1 > h2 > h3)
-- ARIA labels untuk semua interactive elements
-- Focus visible indicators
-- Color contrast checks (WCAG AA minimum)
-- Skip to main content link
-
----
-
-### 10.3 Performance Optimization
-**Masalah:** Belum dioptimasi untuk Core Web Vitals.
-
-**Solusi:**
-- Lazy load images below the fold
-- Font subsetting untuk custom fonts
-- Critical CSS inlining
-- Component-level code splitting
-- Image optimization dengan next/image (sudah ada, verify)
+| Phase | Fokus Area | Status | Catatan |
+|-------|------------|--------|---------|
+| 1 | Navbar | ✅ COMPLETE | Mobile menu, scroll behavior |
+| 2 | Hero | ✅ COMPLETE | Animasi, video background |
+| 3 | Trust Logos | ✅ COMPLETE | Real logos, modal 25+ partner |
+| 4 | Philosophy | 🔄 PARTIAL | 4.1 done, 4.2 perlu review |
+| 5 | Process | ⏸️ PENDING | - |
+| 6 | Jobs | ⏸️ PENDING | - |
+| 7 | Testimonials | ⏸️ PENDING | - |
+| 8 | CTA/Closing | ⏸️ PENDING | - |
+| 9 | Footer | ⏸️ PENDING | - |
+| 10 | Global | ⏸️ PENDING | - |
 
 ---
 
-### 10.4 Dark Mode Support
-**Masalah:** Hanya ada light mode.
+## STRUKTUR FILE SAAT INI
 
-**Solusi:**
-- CSS variables untuk color theming
-- System preference detection (prefers-color-scheme)
-- Manual toggle di Navbar
-- Persist preference ke localStorage
-- Smooth transition antar mode
+```
+apps/web/src/
+├── components/
+│   ├── layout/
+│   │   ├── Navbar.tsx ✅
+│   │   ├── MobileMenu.tsx ✅
+│   │   ├── Footer.tsx ✅
+│   │   └── VideoBackground.tsx ✅ [NEW]
+│   ├── sections/
+│   │   ├── HeroSection.tsx ✅
+│   │   ├── TrustLogosSection.tsx ✅ (enhanced with modal)
+│   │   ├── PhilosophySection.tsx ✅ (with Phosphor icons)
+│   │   ├── ProcessSection.tsx
+│   │   ├── JobsSection.tsx
+│   │   ├── TestimonialSection.tsx
+│   │   └── ClosingSection.tsx
+│   └── ui/
+│       └── JobCard.tsx
+├── hooks/
+└── app/
+
+public/
+├── logos/
+│   ├── TelkomFIX.png ✅
+│   ├── goto.png ✅
+│   ├── PertaminaFIX.png ✅
+│   ├── traveloka.png ✅
+│   └── bri.svg ✅
+└── wmremove-transformed.mp4 ✅ [VIDEO BACKGROUND]
+```
 
 ---
 
-## RINGKASAN IMPLEMENTASI
+## CATATAN PENTING
 
-| Phase | Fokus Area | Komponen Utama | Prioritas |
-|-------|------------|----------------|-----------|
-| 1 | Navbar | Mobile menu, Scroll behavior, Active link | HIGH |
-| 2 | Hero | Animations, Stats, Visual depth | HIGH |
-| 3 | Trust Logos | Real logos, Marquee, Tooltips | MEDIUM |
-| 4 | Philosophy | Icons, Background, Expandable | MEDIUM |
-| 5 | Process | Connectors, Icons, Interactivity | MEDIUM |
-| 6 | Jobs | Filters, Enhanced cards, Quick apply | HIGH |
-| 7 | Testimonials | Carousel, Video, Ratings | MEDIUM |
-| 8 | CTA/Closing | Strong CTA, Newsletter, FAQ | HIGH |
-| 9 | Footer | Complete nav, App badges, Back to top | LOW |
-| 10 | Global | Loading, A11y, Performance, Dark mode | HIGH |
+### Video Background Sudah Ada
+- Full-page video background sudah diimplementasi
+- **IMPLIKASI:** Phase yang menyebutkan "background pattern" atau "gradient mesh" perlu direview
+- Opsi: Skip atau gunakan dengan opacity sangat rendah
 
----
-
-## CATATAN TEKNIS
-
-### Dependencies yang Mungkin Diperlukan
+### Dependencies yang Sudah Terinstall
 ```json
 {
   "dependencies": {
-    "@radix-ui/react-tooltip": "^1.x",
-    "@radix-ui/react-accordion": "^1.x",
-    "@radix-ui/react-dialog": "^1.x",
-    "react-countup": "^6.x",
-    "embla-carousel-react": "^8.x",
-    "next-themes": "^0.x"
+    "framer-motion": "installed",
+    "lucide-react": "installed",
+    "@phosphor-icons/react": "installed" // NEW
   }
 }
 ```
 
-### File Structure yang Disarankan
-```
-src/
-├── components/
-│   ├── layout/
-│   │   ├── Navbar.tsx
-│   │   ├── MobileMenu.tsx [NEW]
-│   │   ├── Footer.tsx
-│   │   └── BackToTop.tsx [NEW]
-│   ├── sections/
-│   │   └── [existing + enhanced]
-│   ├── ui/
-│   │   ├── JobCard.tsx
-│   │   ├── TestimonialCard.tsx [NEW]
-│   │   ├── Skeleton.tsx [NEW]
-│   │   └── FilterBar.tsx [NEW]
-│   └── shared/
-│       ├── Tooltip.tsx [NEW]
-│       ├── Modal.tsx [NEW]
-│       └── Accordion.tsx [NEW]
-├── hooks/
-│   ├── useActiveSection.ts [NEW]
-│   ├── useScrollDirection.ts [NEW]
-│   └── useMediaQuery.ts [NEW]
-└── lib/
-    └── cn.ts (classnames utility)
+### Dependencies yang Mungkin Diperlukan (Future)
+```json
+{
+  "dependencies": {
+    "@radix-ui/react-accordion": "untuk FAQ accordion",
+    "react-countup": "untuk animated counters",
+    "embla-carousel-react": "untuk testimonial carousel"
+  }
+}
 ```
 
 ---
 
 **Dokumen ini dibuat untuk panduan pengembangan MagangKareer Landing Page.**
-**Estimasi total waktu implementasi: 40-60 jam development.**
-**Prioritas HIGH harus dikerjakan terlebih dahulu.**
+**Progress: ~35% complete (14/40 items)**
+**Estimasi waktu tersisa: 25-35 jam development.**

@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ShieldCheck, Student, ChartLineUp, IconProps } from "@phosphor-icons/react";
-import { ComponentType } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ShieldCheck, Student, ChartLineUp, CaretDown, IconProps } from "@phosphor-icons/react";
+import { ComponentType, useState } from "react";
 
 interface Feature {
     title: string;
     description: string;
+    detailContent: string;
     icon: ComponentType<IconProps>;
     color: string;
 }
@@ -16,6 +17,8 @@ const features: Feature[] = [
         title: "Terkurasi Ketat",
         description:
             "Hanya menampilkan lowongan yang telah diverifikasi standar mentoring dan kejelasan job desc-nya.",
+        detailContent:
+            "Setiap lowongan melalui proses kurasi 3 tahap: verifikasi perusahaan, review job description oleh tim HR profesional, dan validasi program mentoring. Kami menolak lebih dari 60% submission yang tidak memenuhi standar kualitas kami.",
         icon: ShieldCheck,
         color: "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100",
     },
@@ -23,6 +26,8 @@ const features: Feature[] = [
         title: "Ekosistem Kampus",
         description:
             "Terintegrasi dengan sistem akademik untuk konversi SKS dan jadwal yang menghormati waktu kuliah.",
+        detailContent:
+            "Bekerjasama dengan 30+ universitas di Indonesia untuk memastikan program magang dapat dikonversi menjadi SKS. Sistem scheduling kami mempertimbangkan jadwal kuliah mahasiswa sehingga tidak mengganggu kegiatan akademik.",
         icon: Student,
         color: "bg-blue-50 text-blue-600 group-hover:bg-blue-100",
     },
@@ -30,12 +35,20 @@ const features: Feature[] = [
         title: "Jalur Karier",
         description:
             "Bukan sekadar magang, melainkan pipeline talent untuk rekrutmen full-time pasca kelulusan.",
+        detailContent:
+            "85% mitra perusahaan kami memiliki program konversi dari magang ke karyawan tetap. Kami juga menyediakan mentoring karier, review CV, dan persiapan interview untuk memaksimalkan peluang Anda mendapatkan pekerjaan impian.",
         icon: ChartLineUp,
         color: "bg-purple-50 text-purple-600 group-hover:bg-purple-100",
     },
 ];
 
 export function PhilosophySection() {
+    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+    const toggleExpand = (index: number) => {
+        setExpandedIndex(expandedIndex === index ? null : index);
+    };
+
     return (
         <section className="relative z-10 py-32" id="tentang">
             <div className="mx-auto max-w-2xl px-6 text-center mb-24">
@@ -76,9 +89,42 @@ export function PhilosophySection() {
                             </div>
 
                             {/* Description */}
-                            <p className="text-slate-500 leading-relaxed pl-[18px]">
+                            <p className="text-slate-500 leading-relaxed pl-[18px] mb-3">
                                 {feature.description}
                             </p>
+
+                            {/* Expand/Collapse Button */}
+                            <button
+                                onClick={() => toggleExpand(index)}
+                                className="flex items-center gap-1.5 pl-[18px] text-sm font-medium text-slate-400 hover:text-slate-600 transition-colors"
+                            >
+                                <span>{expandedIndex === index ? "Tutup" : "Pelajari Lebih Lanjut"}</span>
+                                <motion.div
+                                    animate={{ rotate: expandedIndex === index ? 180 : 0 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <CaretDown size={14} weight="bold" />
+                                </motion.div>
+                            </button>
+
+                            {/* Expandable Detail Content */}
+                            <AnimatePresence>
+                                {expandedIndex === index && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="mt-4 pl-[18px] pr-2 py-3 bg-slate-50 rounded-lg border-l-2 border-slate-300">
+                                            <p className="text-sm text-slate-600 leading-relaxed">
+                                                {feature.detailContent}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     ))}
                 </div>
