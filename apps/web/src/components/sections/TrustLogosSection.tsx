@@ -328,21 +328,30 @@ export function TrustLogosSection() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="flex h-full flex-col items-center justify-center py-16 text-center">
-                                        <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-slate-100">
-                                            <Search className="h-8 w-8 text-slate-300" />
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="flex h-full flex-col items-center justify-center py-20 text-center"
+                                    >
+                                        <div className="relative mb-8">
+                                            <div className="absolute inset-0 scale-150 bg-slate-100/50 blur-3xl rounded-full" />
+                                            <div className="relative flex h-24 w-24 items-center justify-center rounded-[2rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/50">
+                                                <Search className="h-10 w-10 text-slate-300" />
+                                            </div>
                                         </div>
-                                        <h3 className="text-lg font-semibold text-slate-900">Belum ada partner yang cocok</h3>
-                                        <p className="mt-2 max-w-sm text-sm text-slate-500">
-                                            Belum ada partner dengan kriteria ini, tapi kami terus menambah mitra baru yang relevan untuk mahasiswa.
+                                        <h3 className="text-xl font-bold text-slate-900 tracking-tight">Belum ada partner yang cocok</h3>
+                                        <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-500">
+                                            Hmm, kriteria filter kamu belum menemukan hasil. Coba reset filter atau gunakan kata kunci lain.
                                         </p>
-                                        <button
+                                        <motion.button
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
                                             onClick={resetFilters}
-                                            className="mt-6 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-slate-800"
+                                            className="mt-8 rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/20 transition-all hover:bg-slate-800"
                                         >
                                             Reset semua filter
-                                        </button>
-                                    </div>
+                                        </motion.button>
+                                    </motion.div>
                                 )}
                             </div>
 
