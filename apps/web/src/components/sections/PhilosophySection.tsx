@@ -3,6 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, Student, ChartLineUp, CaretDown, IconProps } from "@phosphor-icons/react";
 import { ComponentType, useState } from "react";
+import CountUp from "react-countup";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 interface Feature {
     title: string;
@@ -11,6 +14,20 @@ interface Feature {
     icon: ComponentType<IconProps>;
     color: string;
 }
+
+interface Stat {
+    value: number;
+    suffix?: string;
+    prefix?: string;
+    label: string;
+    decimals?: number;
+}
+
+const stats: Stat[] = [
+    { value: 150, suffix: "+", label: "Lowongan Terkurasi" },
+    { value: 30, suffix: "+", label: "Kampus Partner" },
+    { value: 4.9, suffix: "/5", label: "Rating Alumni", decimals: 1 },
+];
 
 const features: Feature[] = [
     {
@@ -42,8 +59,33 @@ const features: Feature[] = [
     },
 ];
 
+// Stats Counter Component
+function StatsCounter({ stat, inView }: { stat: Stat; inView: boolean }) {
+    return (
+        <div className="text-center">
+            <div className="text-3xl md:text-4xl font-bold text-slate-900">
+                {stat.prefix}
+                {inView ? (
+                    <CountUp
+                        end={stat.value}
+                        duration={2.5}
+                        decimals={stat.decimals || 0}
+                        separator=","
+                    />
+                ) : (
+                    0
+                )}
+                {stat.suffix}
+            </div>
+            <div className="mt-1 text-sm text-slate-500 font-medium">{stat.label}</div>
+        </div>
+    );
+}
+
 export function PhilosophySection() {
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+    const statsRef = useRef(null);
+    const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
 
     const toggleExpand = (index: number) => {
         setExpandedIndex(expandedIndex === index ? null : index);
@@ -51,7 +93,7 @@ export function PhilosophySection() {
 
     return (
         <section className="relative z-10 py-32" id="tentang">
-            <div className="mx-auto max-w-2xl px-6 text-center mb-24">
+            <div className="mx-auto max-w-2xl px-6 text-center mb-16">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -67,6 +109,31 @@ export function PhilosophySection() {
                     profesional dibangun di atas transparansi dan kualitas.
                 </p>
             </div>
+
+            {/* Stats Counter Row */}
+            <motion.div
+                ref={statsRef}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="mx-auto max-w-3xl px-6 mb-24"
+            >
+                <div className="flex justify-center items-center gap-8 md:gap-16 py-8 border-y border-slate-100">
+                    {stats.map((stat, index) => (
+                        <motion.div
+                            key={stat.label}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.4, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                        >
+                            <StatsCounter stat={stat} inView={statsInView} />
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
+
             <div className="mx-auto max-w-7xl px-6">
                 <div className="grid gap-12 md:grid-cols-3">
                     {features.map((feature, index) => (
