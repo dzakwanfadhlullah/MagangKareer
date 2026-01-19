@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
-import { Clock, Briefcase } from "@phosphor-icons/react";
+import { Clock, Briefcase, Star, SealCheck, CalendarBlank } from "@phosphor-icons/react";
 
 interface Testimonial {
     id: number;
@@ -15,6 +15,9 @@ interface Testimonial {
     department: string;
     quote: string;
     avatar: string;
+    rating: number; // 1-5 stars
+    year: number; // tahun magang
+    verified: boolean; // verified alumni badge
 }
 
 const testimonials: Testimonial[] = [
@@ -28,6 +31,9 @@ const testimonials: Testimonial[] = [
         department: "Digital Product",
         quote: "MagangKareer membantu saya mendapatkan posisi di perusahaan impian. Prosesnya transparan dan mentornya sangat suportif.",
         avatar: "https://ui-avatars.com/api/?name=Sarah+Amalia&background=6366f1&color=fff&size=128&font-size=0.4",
+        rating: 5,
+        year: 2024,
+        verified: true,
     },
     {
         id: 2,
@@ -39,6 +45,9 @@ const testimonials: Testimonial[] = [
         department: "Business Intelligence",
         quote: "Platform yang sangat user-friendly! Dalam 2 minggu saya sudah dapat interview di 3 perusahaan tech unicorn.",
         avatar: "https://ui-avatars.com/api/?name=Budi+Santoso&background=0ea5e9&color=fff&size=128&font-size=0.4",
+        rating: 5,
+        year: 2024,
+        verified: true,
     },
     {
         id: 3,
@@ -50,6 +59,9 @@ const testimonials: Testimonial[] = [
         department: "Product Design",
         quote: "Kurasi lowongannya ketat, jadi saya yakin semua posisi yang ditampilkan memang berkualitas. Highly recommended!",
         avatar: "https://ui-avatars.com/api/?name=Dina+Pratiwi&background=10b981&color=fff&size=128&font-size=0.4",
+        rating: 4,
+        year: 2023,
+        verified: true,
     },
     {
         id: 4,
@@ -61,6 +73,9 @@ const testimonials: Testimonial[] = [
         department: "Corporate Banking",
         quote: "Sebagai mahasiswa non-tech, saya senang ada banyak pilihan role yang sesuai. Proses aplikasinya juga sangat mudah.",
         avatar: "https://ui-avatars.com/api/?name=Rizki+Fauzan&background=f59e0b&color=fff&size=128&font-size=0.4",
+        rating: 5,
+        year: 2024,
+        verified: false,
     },
 ];
 
@@ -177,11 +192,55 @@ export function TestimonialSection() {
                                     </motion.div>
                                 </div>
 
-                                {/* Name */}
-                                <div className="text-center">
+                                {/* Star Rating */}
+                                <motion.div
+                                    className="flex items-center gap-0.5"
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: 0.1 }}
+                                >
+                                    {[1, 2, 3, 4, 5].map((star, index) => (
+                                        <motion.div
+                                            key={star}
+                                            initial={{ opacity: 0, scale: 0, rotate: -30 }}
+                                            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                                            transition={{
+                                                delay: 0.15 + index * 0.08,
+                                                type: "spring",
+                                                stiffness: 400,
+                                                damping: 15,
+                                            }}
+                                        >
+                                            <Star
+                                                size={18}
+                                                weight={star <= currentTestimonial.rating ? "fill" : "regular"}
+                                                className={
+                                                    star <= currentTestimonial.rating
+                                                        ? "text-amber-400"
+                                                        : "text-slate-300"
+                                                }
+                                            />
+                                        </motion.div>
+                                    ))}
+                                </motion.div>
+
+                                {/* Name + Verified Badge */}
+                                <div className="flex items-center gap-2">
                                     <div className="text-base font-bold text-slate-900 tracking-wide">
                                         {currentTestimonial.name}
                                     </div>
+                                    {currentTestimonial.verified && (
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ delay: 0.2, type: "spring" }}
+                                            className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200"
+                                            title="Verified Alumni"
+                                        >
+                                            <SealCheck size={12} weight="fill" className="text-emerald-500" />
+                                            <span className="text-[10px] font-semibold text-emerald-700">Verified</span>
+                                        </motion.div>
+                                    )}
                                 </div>
 
                                 {/* Role Badge */}
@@ -231,6 +290,14 @@ export function TestimonialSection() {
                                     <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-50 border border-purple-100">
                                         <span className="text-xs font-medium text-purple-700">
                                             {currentTestimonial.department}
+                                        </span>
+                                    </div>
+
+                                    {/* Year Badge */}
+                                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-50 border border-amber-100">
+                                        <CalendarBlank size={12} weight="fill" className="text-amber-500" />
+                                        <span className="text-xs font-medium text-amber-700">
+                                            {currentTestimonial.year}
                                         </span>
                                     </div>
                                 </motion.div>
