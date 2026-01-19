@@ -133,13 +133,32 @@
 
 ---
 
-## ⏸️ PHASE 5: PROCESS SECTION TRANSFORMATION [PENDING]
-**Fokus:** Visual Flow dan Interaktivitas
+### ✅ 5.1 Timeline/Connector Visual antar Steps
+**Status:** COMPLETED
+-Penambahan garis konektor horizontal di desktop (gradient)
+-Penambahan garis konektor vertikal di mobile
+-Dot indicator animasi di bawah nomor langkah
+-Typo 'Acelerate' diperbaiki menjadi 'Accelerate'
 
-### ⏸️ 5.1 Timeline/Connector Visual antar Steps
-### ⏸️ 5.2 Ilustrasi/Icon untuk Setiap Step
+### ✅ 5.2 Ilustrasi/Icon untuk Setiap Step
+**Status:** COMPLETED
+-Penambahan Phosphor icons (Compass, MagnifyingGlass, RocketLaunch)
+-Eyek-candy: Floating animation on icons
+-Organic feel: Wavy SVG connectors & dashed strokes
+-Typo 'Acelerate' diperbaiki menjadi 'Accelerate'
+
 ### ⏸️ 5.3 Interactive Step Cards dengan Hover State
+**Status:** PENDING
+-Card elevation on hover dengan shadow
+-Expand deskripsi dengan detail tambahan
+-Cursor pointer untuk indicate interactivity
+
 ### ⏸️ 5.4 Progress Indicator untuk User Journey
+**Status:** PENDING
+-Sticky mini-indicator di sidebar atau bottom
+-Menunjukkan: "Anda di tahap Eksplorasi"
+-Update berdasarkan user state (if authenticated)
+-Skip to step functionality
 
 ---
 
@@ -201,7 +220,7 @@
 | 2 | Hero | ✅ COMPLETE | Animasi, video background |
 | 3 | Trust Logos | ✅ COMPLETE | Real logos, modal 25+ partner |
 | 4 | Philosophy | ✅ COMPLETE | Icons, Expandable, Counters |
-| 5 | Process | ⏸️ PENDING | - |
+| 5 | Process | 🔄 PARTIAL | 5.1 complete (connectors) |
 | 6 | Jobs | ⏸️ PENDING | - |
 | 7 | Testimonials | ⏸️ PENDING | - |
 | 8 | CTA/Closing | ⏸️ PENDING | - |
@@ -277,5 +296,5 @@ public/
 ---
 
 **Dokumen ini dibuat untuk panduan pengembangan MagangKareer Landing Page.**
-**Progress: ~40% complete (16/40 items)**
-**Estimasi waktu tersisa: 22-32 jam development.**
+**Progress: ~42% complete (17/40 items)**
+**Estimasi waktu tersisa: 21-31 jam development.**
