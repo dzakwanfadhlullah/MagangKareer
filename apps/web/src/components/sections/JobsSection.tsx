@@ -9,14 +9,14 @@ import { useState } from "react";
 const filters = ["Semua", "Remote", "Jakarta", "Bandung", "Tangerang"];
 
 const jobs = [
-    { title: "UI/UX Designer", company: "GoTo Financial", location: "Jakarta", workMode: "WFO" },
-    { title: "Data Analyst", company: "Telkom Indonesia", location: "Bandung", workMode: "Hybrid" },
-    { title: "Software Engineer", company: "Bank Central Asia", location: "Tangerang", workMode: "WFO" },
-    { title: "Product Manager", company: "Traveloka", location: "Jakarta", workMode: "Remote" },
-    { title: "Marketing Intern", company: "Shopee", location: "Jakarta", workMode: "Hybrid" },
-    { title: "Finance Intern", company: "Bank Mandiri", location: "Jakarta", workMode: "WFO" },
-    { title: "Backend Dev", company: "Tokopedia", location: "Jakarta", workMode: "Remote" },
-    { title: "AI Research", company: "Nodeflux", location: "Jakarta", workMode: "WFO" },
+    { title: "UI/UX Designer", company: "GoTo Financial", location: "Jakarta", workMode: "WFO", salaryRange: "4-6 jt", duration: "6 Bulan" },
+    { title: "Data Analyst", company: "Telkom Indonesia", location: "Bandung", workMode: "Hybrid", salaryRange: "3-5 jt", duration: "3 Bulan" },
+    { title: "Software Engineer", company: "Bank Central Asia", location: "Tangerang", workMode: "WFO", salaryRange: "5-7 jt", duration: "6 Bulan" },
+    { title: "Product Manager", company: "Traveloka", location: "Jakarta", workMode: "Remote", salaryRange: "6-8 jt", duration: "6 Bulan" },
+    { title: "Marketing Intern", company: "Shopee", location: "Jakarta", workMode: "Hybrid", salaryRange: "2-4 jt", duration: "3 Bulan" },
+    { title: "Finance Intern", company: "Bank Mandiri", location: "Jakarta", workMode: "WFO", salaryRange: "3-4 jt", duration: "6 Bulan" },
+    { title: "Backend Dev", company: "Tokopedia", location: "Jakarta", workMode: "Remote", salaryRange: "5-8 jt", duration: "6 Bulan" },
+    { title: "AI Research", company: "Nodeflux", location: "Jakarta", workMode: "WFO", salaryRange: "4-7 jt", duration: "6 Bulan" },
 ];
 
 export function JobsSection() {
@@ -50,8 +50,8 @@ export function JobsSection() {
                                     key={filter}
                                     onClick={() => setActiveFilter(filter)}
                                     className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${activeFilter === filter
-                                            ? "text-blue-600"
-                                            : "text-slate-500 hover:text-slate-800"
+                                        ? "text-blue-600"
+                                        : "text-slate-500 hover:text-slate-800"
                                         }`}
                                 >
                                     {activeFilter === filter && (
