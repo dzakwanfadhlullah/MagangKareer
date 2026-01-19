@@ -137,8 +137,8 @@ export function TestimonialSection() {
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
-                {/* Quote Container */}
-                <div className="relative min-h-[420px] md:min-h-[380px] flex items-center justify-center">
+                {/* Quote Container - Fixed height for consistent dot navigation */}
+                <div className="relative h-[420px] md:h-[380px] flex items-center justify-center">
                     <AnimatePresence mode="wait" custom={direction}>
                         <motion.div
                             key={currentTestimonial.id}
@@ -152,32 +152,58 @@ export function TestimonialSection() {
                                 opacity: { duration: 0.3 },
                                 scale: { duration: 0.3 },
                             }}
-                            className="flex flex-col items-center justify-center px-4"
+                            className="flex flex-col items-center justify-center px-6 py-5 md:px-10 md:py-6 rounded-2xl md:rounded-3xl bg-gradient-to-b from-white/75 to-white/60 backdrop-blur-lg border border-white/40 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-300/50 transition-all duration-300"
+                            whileHover={{ y: -3 }}
                         >
-                            {/* Quote */}
-                            <blockquote className="mb-8">
-                                <span className="font-serif text-2xl md:text-3xl lg:text-4xl leading-snug text-slate-900 block max-w-3xl">
-                                    &quot;{currentTestimonial.quote}&quot;
+                            {/* Quote with Decorative Marks */}
+                            <blockquote className="mb-4 relative px-6 md:px-10">
+                                {/* Opening Quote Mark - inside card */}
+                                <motion.span
+                                    className="absolute top-0 left-0 text-3xl md:text-4xl font-serif text-slate-300/80 select-none leading-none"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.05 }}
+                                    aria-hidden="true"
+                                >
+                                    ❝
+                                </motion.span>
+
+                                <span className="font-serif text-lg sm:text-xl md:text-2xl leading-relaxed text-slate-800 block max-w-2xl">
+                                    {currentTestimonial.quote}
                                 </span>
+
+                                {/* Closing Quote Mark - inside card */}
+                                <motion.span
+                                    className="absolute bottom-0 right-0 text-3xl md:text-4xl font-serif text-slate-300/80 select-none leading-none"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.1 }}
+                                    aria-hidden="true"
+                                >
+                                    ❞
+                                </motion.span>
                             </blockquote>
 
                             {/* Author Card */}
-                            <div className="flex flex-col items-center justify-center gap-4">
+                            <div className="flex flex-col items-center justify-center gap-2">
                                 {/* Avatar + Company Logo */}
-                                <div className="relative">
-                                    {/* Avatar */}
-                                    <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-white shadow-xl ring-4 ring-slate-100">
+                                <div className="relative group">
+                                    {/* Avatar with Glow Effect */}
+                                    <motion.div
+                                        className="h-12 w-12 md:h-14 md:w-14 overflow-hidden rounded-full border-2 border-white shadow-lg ring-2 ring-indigo-100/50 transition-all duration-300 group-hover:ring-indigo-200"
+                                        whileHover={{ scale: 1.05 }}
+                                    >
                                         <Image
                                             alt={currentTestimonial.name}
                                             src={currentTestimonial.avatar}
-                                            width={64}
-                                            height={64}
+                                            width={56}
+                                            height={56}
                                             className="h-full w-full object-cover"
                                         />
-                                    </div>
+                                    </motion.div>
                                     {/* Company Logo Badge */}
                                     <motion.div
-                                        className="absolute -bottom-1 -right-1 h-8 w-8 rounded-full bg-white shadow-lg border border-slate-100 flex items-center justify-center p-1 overflow-hidden"
+                                        className="absolute -bottom-0.5 -right-0.5 h-6 w-6 rounded-full bg-white shadow-md border border-slate-100 flex items-center justify-center p-0.5 overflow-hidden"
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
                                         transition={{ delay: 0.2, type: "spring" }}
@@ -185,8 +211,8 @@ export function TestimonialSection() {
                                         <Image
                                             alt={currentTestimonial.company}
                                             src={currentTestimonial.companyLogo}
-                                            width={24}
-                                            height={24}
+                                            width={20}
+                                            height={20}
                                             className="h-full w-full object-contain"
                                         />
                                     </motion.div>

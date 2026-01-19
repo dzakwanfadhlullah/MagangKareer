@@ -221,13 +221,13 @@
 - Micro-stats: department, durasi, tahun magang
 - Optional: "Verified Alumni" badge
 
-### ⏸️ 7.4 Testimonial Card Visual Polish
-**Deskripsi:** Enhanced styling untuk testimonial cards
-- Decorative quote marks (❝ ❞) dengan styling elegant
-- Avatar dengan subtle glow/ring effect
-- Card hover effects (elevation, border glow)
-- Background gradient subtle untuk depth
-- Responsive typography scaling
+### ✅ 7.4 Testimonial Card Visual Polish
+**Status:** COMPLETED
+- Decorative quote marks (❝ ❞) dengan fade animation
+- Avatar dengan indigo glow/ring effect + hover scale
+- Card hover effects (y-elevation, shadow-xl, glassmorphism bg-white/60)
+- Responsive typography (text-xl → text-4xl)
+- **NOTE:** Background gradient SKIPPED untuk menghindari konflik dengan video background
 
 ---
 
