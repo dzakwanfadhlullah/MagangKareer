@@ -8,6 +8,7 @@ import { ProcessSection } from "@/components/sections/ProcessSection";
 import { JobsSection } from "@/components/sections/JobsSection";
 import { TestimonialSection } from "@/components/sections/TestimonialSection";
 import { ClosingSection } from "@/components/sections/ClosingSection";
+import { FAQSection } from "@/components/sections/FAQSection";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <JobsSection />
       <TestimonialSection />
       <ClosingSection />
+      <FAQSection />
       <Footer />
     </main>
   );

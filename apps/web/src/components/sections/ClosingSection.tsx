@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { CheckCircle, ShieldCheck, Clock, Users } from "@phosphor-icons/react";
 
 export function ClosingSection() {
     // Animation variants for stagger effect
@@ -28,6 +29,13 @@ export function ClosingSection() {
             },
         },
     };
+
+    const trustBadges = [
+        { icon: CheckCircle, label: "100% Gratis", color: "text-emerald-600" },
+        { icon: ShieldCheck, label: "Data Terproteksi", color: "text-blue-600" },
+        { icon: Clock, label: "Daftar 2 Menit", color: "text-amber-600" },
+        { icon: Users, label: "500+ Alumni", color: "text-slate-600" },
+    ];
 
     return (
         <section className="relative z-10 py-24 md:py-32" id="cta">
@@ -58,46 +66,28 @@ export function ClosingSection() {
                     Gratis, terkurasi, dan dirancang khusus untuk kesuksesan kariermu.
                 </motion.p>
 
-                {/* CTA Buttons */}
+
+
+                {/* Enhanced Trust Badges */}
                 <motion.div
                     variants={itemVariants}
-                    className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+                    className="mt-12 flex flex-wrap items-center justify-center gap-3 md:gap-4"
                 >
-                    {/* Primary CTA */}
-                    <Link
-                        href="#lowongan"
-                        className="group inline-flex h-12 items-center justify-center rounded-full bg-slate-900 px-8 text-[15px] font-medium text-white transition-all hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-200"
-                    >
-                        Mulai Sekarang
-                    </Link>
-
-                    {/* Secondary CTA */}
-                    <Link
-                        href="#filosofi"
-                        className="group inline-flex items-center gap-2 text-[15px] font-medium text-slate-600 transition-colors hover:text-slate-900"
-                    >
-                        Pelajari Lebih Lanjut
-                        <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                </motion.div>
-
-                {/* Trust indicators */}
-                <motion.div
-                    variants={itemVariants}
-                    className="mt-12 flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm text-slate-400"
-                >
-                    <span className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
-                        100% Gratis
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
-                        Tanpa Kartu Kredit
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-slate-400" />
-                        Daftar 2 Menit
-                    </span>
+                    {trustBadges.map((badge, index) => (
+                        <motion.div
+                            key={badge.label}
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.4 + index * 0.1 }}
+                            viewport={{ once: true }}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-100 hover:border-slate-200 hover:bg-slate-100/80 transition-all duration-200"
+                        >
+                            <badge.icon size={16} weight="fill" className={badge.color} />
+                            <span className="text-sm font-medium text-slate-600">
+                                {badge.label}
+                            </span>
+                        </motion.div>
+                    ))}
                 </motion.div>
             </motion.div>
         </section>
